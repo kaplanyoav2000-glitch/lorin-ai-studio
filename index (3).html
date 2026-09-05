@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorin AI Studio — שאלון היכרות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=David+Libre:wght@400;500;700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --cream: #17140F;
+    --cream-dim: #837A68;
+    --ink: #17140F;
+    --ink-soft: #6B6252;
+    --gold: #C9A15C;
+    --gold-bright: #B98B3E;
+    --gold-deep: #9C7A3F;
+    --rust: #B5573A;
+    --whatsapp: #2E7D5B;
+    --whatsapp-deep: #235F45;
+    --line-dark: #E7E1D2;
+    --line-paper: #E2DBC7;
+    --paper-card: #FFFFFF;
+    --track: #ECE6D6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans Hebrew', sans-serif;
+    min-height:100vh;
+    position:relative;
+  }
+
+  .wrap{max-width:760px; margin:0 auto; padding: 48px 20px 90px; position:relative; z-index:1;}
+
+  /* ---------- Top mark ---------- */
+  .mark{ display:flex; align-items:center; gap:12px; margin-bottom: 58px; }
+  .mark-icon{
+    width:38px; height:38px; flex-shrink:0; border-radius:50%;
+    background:var(--ink); display:flex; align-items:center; justify-content:center;
+  }
+  .mark-icon svg{ width:15px; height:15px; color:var(--gold); }
+  .mark-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .mark-text b{ font-family:'Frank Ruhl Libre', serif; font-size:18px; font-weight:700; color:var(--ink); }
+  .mark-text span{ font-size:10.5px; letter-spacing:0.14em; color:var(--gold-deep); font-weight:600; }
+
+  /* ---------- Hero / intro ---------- */
+  .hero-grid{
+    display:grid; grid-template-columns: 1fr 1.1fr; gap:60px; align-items:center;
+    padding: 30px 0 20px;
+  }
+  @media (max-width:760px){
+    .hero-grid{ grid-template-columns: 1fr; gap:36px; }
+    .hero-visual{ order:-1; max-width:340px; margin:0 auto; }
+  }
+
+  .hero-eyebrow{
+    font-size:11.5px; letter-spacing:0.16em; color:var(--gold-deep); font-weight:600;
+    margin-bottom:16px;
+  }
+  .hero-copy h1{
+    font-family:'David Libre', serif; font-weight:500;
+    font-size: clamp(34px, 5.6vw, 52px); line-height:1.22; margin:0 0 22px;
+    color:var(--ink); letter-spacing:0.005em;
+  }
+  .hero-copy p{
+    font-family:'David Libre', serif; font-weight:400;
+    font-size:18px; color:var(--ink-soft); line-height:1.8;
+    max-width:42ch; margin: 0 0 30px;
+  }
+  .hero-meta-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:36px; }
+  .hero-meta-list span{
+    display:flex; align-items:center; gap:9px; font-size:13.5px; color:var(--ink-soft);
+  }
+  .hero-meta-list svg{ width:15px; height:15px; color:var(--gold-deep); flex-shrink:0; }
+
+  /* video mock visual */
+  .hero-visual{ position:relative; }
+  .hero-blob{
+    position:absolute; width:300px; height:300px; border-radius:50%;
+    background: radial-gradient(circle, rgba(201,161,92,0.32), rgba(201,161,92,0) 72%);
+    top:50%; left:50%; transform:translate(-50%,-50%); z-index:0;
+  }
+  .reel{
+    position:relative; z-index:1; aspect-ratio: 4/5; max-height:460px;
+    background:var(--ink); border:1.5px solid var(--ink);
+    box-shadow: 9px 9px 0 0 rgba(201,161,92,0.35);
+    overflow:hidden;
+  }
+  .reel-slide{
+    position:absolute; inset:0; opacity:0; transition:opacity 1s ease;
+    background-size:200% 200%; background-position:30% 30%;
+    animation: reelDrift 14s ease-in-out infinite alternate;
+    display:flex; flex-direction:column; justify-content:space-between; padding:20px;
+    color:#fff;
+  }
+  .reel-slide.active{ opacity:1; }
+  @keyframes reelDrift{
+    from{ background-position:20% 25%; }
+    to{ background-position:75% 70%; }
+  }
+  .reel-slide video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1;
+  }
+  .reel-top{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1; }
+  .reel-badge{
+    font-size:10px; letter-spacing:0.12em; color:var(--gold);
+    border:1px solid rgba(201,161,92,0.5); padding:5px 10px; background:rgba(0,0,0,0.2);
+  }
+  .reel-dot-live{ width:8px; height:8px; border-radius:50%; background:#E1503B; box-shadow:0 0 0 3px rgba(225,80,59,0.28); margin-top:3px; }
+  .reel-center{ flex:1; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+  .reel-play{
+    width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.16);
+    border:1.3px solid rgba(255,255,255,0.5); backdrop-filter: blur(2px);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .reel-play svg{ width:19px; height:19px; color:#fff; }
+  .reel-label{ position:relative; z-index:1; font-size:14.5px; font-weight:600; }
+
+  .reel-nav{
+    display:flex; justify-content:center; gap:8px; margin-top:16px; position:relative; z-index:1;
+  }
+  .reel-nav button{
+    width:20px; height:3px; padding:0; border:none; background:var(--track); cursor:pointer;
+    transition: background .2s ease, width .2s ease;
+  }
+  .reel-nav button.active{ background:var(--gold-deep); width:30px; }
+
+  .hero-tag{
+    position:absolute; z-index:2; bottom:-18px; left:-14px;
+    background:#fff; border:1.3px solid var(--ink); padding:9px 15px;
+    font-size:12.5px; font-weight:600; color:var(--ink);
+    box-shadow: 5px 5px 0 0 rgba(201,161,92,0.32);
+    transform: rotate(-3deg);
+  }
+  @media (max-width:760px){ .hero-tag{ left:6px; } }
+
+  .btn-start{
+    background:var(--gold); color:#231B0E; font-weight:600; font-size:16px;
+    padding: 17px 40px; display:inline-flex; align-items:center; gap:10px;
+  }
+  .btn-start:hover{ background:var(--gold-bright); }
+  .btn-start svg{ width:17px; height:17px; }
+
+  /* ---------- Scrubber progress ---------- */
+  .scrubber{ margin: 0 0 26px; }
+  .scrubber-track{
+    position:relative; height:2px; background:var(--track); border-radius:2px;
+  }
+  .scrubber-fill{
+    position:absolute; top:0; bottom:0; right:0; width:0%;
+    background:linear-gradient(90deg, var(--gold-deep), var(--gold));
+    border-radius:2px; transition: width .5s cubic-bezier(.65,0,.35,1);
+  }
+  .scrubber-head{
+    position:absolute; top:50%; width:11px; height:11px; border-radius:50%;
+    background:var(--gold); transform:translate(50%,-50%);
+    box-shadow: 0 0 0 4px rgba(201,161,92,0.16), 0 0 10px rgba(201,161,92,0.4);
+    transition: right .5s cubic-bezier(.65,0,.35,1);
+  }
+  .scrubber-labels{
+    display:flex; justify-content:space-between; margin-top:10px;
+    font-size:11.5px; color:var(--cream-dim); letter-spacing:0.01em;
+  }
+
+  /* ---------- Screen (the framed question card) ---------- */
+  .screen-shell{
+    position:relative;
+    border:1.5px solid var(--ink);
+    box-shadow: 8px 8px 0 0 rgba(201,161,92,0.22);
+    background:var(--paper-card);
+    color:var(--ink);
+  }
+  .screen-inner{
+    padding: 40px 38px;
+    min-height: 380px;
+    display:flex; flex-direction:column;
+  }
+  @media (max-width:560px){ .screen-inner{ padding: 30px 22px; } }
+
+  .anim-in{ animation: screenIn .42s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes screenIn{
+    from{ opacity:0; transform: translateY(10px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .q-head{ display:flex; align-items:flex-start; gap:14px; margin-bottom: 8px; }
+  .q-icon{
+    width:38px; height:38px; flex-shrink:0; border-radius:50%;
+    background:#EFE4C8; display:flex; align-items:center; justify-content:center;
+    color:var(--gold-deep);
+  }
+  .q-icon svg{ width:19px; height:19px; }
+  .q-eyebrow{ font-size:12px; color:var(--ink-soft); margin-bottom:3px; letter-spacing:0.01em; }
+  .q-head h2{
+    font-family:'Frank Ruhl Libre', serif; font-weight:700;
+    font-size: clamp(21px, 3.2vw, 26px); margin:0; line-height:1.3; color:var(--ink);
+  }
+  .q-hint{ color:var(--ink-soft); font-size:14px; margin: 10px 0 24px; line-height:1.6; }
+
+  .options{ display:grid; gap:9px; margin-bottom: 6px; }
+  .opt{
+    display:flex; align-items:center; gap:14px;
+    border:1.3px solid var(--line-paper); background:#FFFDF6;
+    padding: 15px 17px; cursor:pointer; font-size:15px; color:var(--ink);
+    transition: border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .opt:hover{ border-color:var(--gold-deep); }
+  .opt:active{ transform: scale(0.995); }
+  .opt input{ display:none; }
+  .opt .mark-shape{
+    width:19px; height:19px; border-radius:50%; border:1.5px solid #B8AC8C;
+    flex-shrink:0; display:flex; align-items:center; justify-content:center; order:2;
+  }
+  .opt.checkbox .mark-shape{ border-radius:5px; }
+  .opt .mark-shape svg{ width:11px; height:11px; opacity:0; transform:scale(0.4); transition: all .18s cubic-bezier(.2,.8,.2,1); color:#fff; }
+  .opt input:checked ~ .mark-shape{ background:var(--gold-deep); border-color:var(--gold-deep); }
+  .opt input:checked ~ .mark-shape svg{ opacity:1; transform:scale(1); }
+  .opt:has(input:checked){ border-color:var(--gold-deep); background:#FBF3E1; }
+  .opt .label-block{ flex:1; }
+
+  .nav-row{
+    margin-top:auto; display:flex; justify-content:space-between; align-items:center;
+    padding-top: 30px;
+  }
+  button{
+    font-family:'IBM Plex Sans Hebrew', sans-serif; font-size:15px; font-weight:500;
+    border:none; cursor:pointer; padding: 14px 28px;
+    transition: transform .12s ease, opacity .15s ease, background .15s ease;
+  }
+  button:active{ transform: scale(0.97); }
+  .btn-primary{ background:var(--ink); color:#FBF6EA; display:inline-flex; align-items:center; gap:8px; }
+  .btn-primary:hover{ background:var(--gold-deep); color:#fff; }
+  .btn-primary:disabled{ opacity:.3; cursor:not-allowed; }
+  .btn-primary:disabled:hover{ background:var(--ink); }
+  .btn-ghost{ background:transparent; color:var(--ink-soft); padding:14px 8px; }
+  .btn-ghost:hover{ color:var(--ink); }
+
+  /* ---------- Recap + WhatsApp ---------- */
+  .recap-rows{ margin: 4px 0 22px; }
+  .r-row{
+    display:flex; justify-content:space-between; gap:16px; padding:13px 0;
+    border-bottom:1px solid #E7DCBE; font-size:14px;
+  }
+  .r-row:last-child{ border-bottom:none; }
+  .r-row span:first-child{ color:var(--ink-soft); }
+  .r-row span:last-child{ font-weight:600; text-align:left; }
+
+  .wa-btn{
+    display:flex; align-items:center; gap:11px; justify-content:center;
+    background:var(--whatsapp); color:#fff; text-decoration:none;
+    padding:16px 30px; font-weight:600; font-size:16px; width:100%;
+    transition: background .15s ease, transform .12s ease;
+  }
+  .wa-btn:hover{ background:var(--whatsapp-deep); }
+  .wa-btn:active{ transform: scale(0.98); }
+  .wa-btn svg{ width:21px; height:21px; flex-shrink:0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark">
+    <span class="mark-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+    </span>
+    <span class="mark-text">
+      <b>Lorin</b>
+      <span>AI STUDIO</span>
+    </span>
+  </div>
+
+  <div id="app"></div>
+</div>
+
+<script>
+/* ====================== WhatsApp target number ====================== */
+const WHATSAPP_NUMBER = "972542885085"; // 054-288-5085 בפורמט בינלאומי ללא + או 0
+
+/* ====================== HOMEPAGE VIDEO SHOWCASE ======================
+   5 סרטונים שמתחלפים אוטומטית בעמוד הבית.
+   לכל שקופית: label (הקטגוריה שמוצגת), ו-videoSrc (קישור לקובץ mp4/webm).
+   כל עוד videoSrc ריק — תוצג רקע גרדיאנט אנימטיבי כ"מציין מקום" בלבד.
+   ברגע שיש קבצי וידאו אמיתיים — פשוט מכניסים את הכתובת ל-videoSrc
+   (אפשר גם קישור מאחסון כמו Cloudinary / S3 / Vimeo direct file, לא YouTube iframe).
+   ======================================================================= */
+const SHOWCASE = [
+  { label:"קמפיין פרסומי",   from:"#4A3419", to:"#C9A15C", videoSrc:null },
+  { label:"סרטון מוצר",      from:"#241C10", to:"#B5573A", videoSrc:null },
+  { label:"תוכן לרשתות",     from:"#14110D", to:"#8C6B36", videoSrc:null },
+  { label:"הדרכה ארגונית",   from:"#2A2013", to:"#6E5730", videoSrc:null },
+  { label:"סרטון לאירוע",    from:"#301F12", to:"#D8B57A", videoSrc:null },
+];
+
+/* ====================== ICONS ====================== */
+const ICONS = {
+  clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>`,
+  users: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3"/><path d="M3.5 19c.7-3 2.7-4.6 5.5-4.6s4.8 1.6 5.5 4.6"/><circle cx="17" cy="8" r="2.3"/><path d="M15.3 14.6c2.2.3 3.6 1.7 4.2 4"/></svg>`,
+  aperture: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5 15 9M20.5 12 15 9M20.5 12 17.5 17.3M12 20.5l2.5-5.3M12 20.5l-5.5-1M3.5 12l6 1M3.5 12 6.5 6.7M12 3.5 9 9"/></svg>`,
+  bulb: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.45 1 1.15 1 1.9V16h5v-.2c0-.75.4-1.45 1-1.9A6 6 0 0 0 12 3Z"/></svg>`,
+  target: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></svg>`,
+  globe: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.3 3.6 5.3 3.6 8.5s-1.2 6.2-3.6 8.5c-2.4-2.3-3.6-5.3-3.6-8.5S9.6 5.8 12 3.5Z"/></svg>`,
+  caption: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="1.6"/><path d="M7 13.5h3M7 10.5h6M13.5 13.5h3.5"/></svg>`,
+  frame: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4"/><rect x="7.5" y="7.5" width="9" height="9" rx="0.8"/></svg>`,
+  stack: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="6.5" rx="1"/><rect x="5" y="13.5" width="14" height="6.5" rx="1"/></svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4.5 4.5L19 8"/></svg>`,
+  arrowLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>`,
+  whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.01a7.94 7.94 0 0 0 5.54-13.58ZM12.05 18.5h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.55 6.55 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.54 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.19-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.31-1.58-.98a5.94 5.94 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.34.1-.12.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.24-.18.19-.68.67-.68 1.63s.7 1.9.8 2.03c.1.13 1.38 2.1 3.34 2.94.47.2.83.32 1.12.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>`,
+};
+
+/* ====================== OPTIONS ====================== */
+const OPTIONS = {
+  package: {
+    "single": { label: "סרטון בודד" },
+    "pack-3": { label: "חבילה של 3 סרטונים" },
+    "pack-5": { label: "חבילה של 5 סרטונים" },
+    "pack-10": { label: "חבילה של 10 סרטונים" },
+  },
+  length: {
+    "up-to-15": { label: "עד 15 שניות" },
+    "15-30":    { label: "15–30 שניות" },
+    "30-60":    { label: "30–60 שניות" },
+    "60plus":   { label: "מעל 60 שניות" },
+  },
+  style: {
+    "ai-look":   { label: "נראות שמזוהה כ-AI" },
+    "realistic": { label: "ריאליסטי — קרוב ככל האפשר לצילום אמיתי" },
+  },
+  concept: {
+    "ready": { label: "יש לי רעיון קריאטיבי מגובש" },
+    "none":  { label: "אין לי רעיון עדיין, צריך לפתח קונספט" },
+  },
+  purpose: {
+    "ad":       { label: "פרסומת / קמפיין" },
+    "social":   { label: "תוכן לרשתות חברתיות" },
+    "internal": { label: "הדרכה / תוכן פנימי" },
+    "event":    { label: "אירוע מיוחד" },
+  },
+  language: {
+    "hebrew":  { label: "עברית" },
+    "english": { label: "אנגלית" },
+    "other":   { label: "שפה אחרת" },
+  },
+  subtitles: {
+    "no":  { label: "לא" },
+    "yes": { label: "כן" },
+  },
+  formats: {
+    "16:9": { label: "16:9 — יוטיוב / אתר" },
+    "9:16": { label: "9:16 — סטוריז / רילס / שורטס" },
+    "1:1":  { label: "1:1 — פיד" },
+  },
+};
+
+const steps = [
+  { key:"intro", type:"intro" },
+  { key:"package",    type:"radio",    icon:"stack",    eyebrow:"היקף",         title:"חבילת סרטונים או סרטון בודד?", hint:"", source:OPTIONS.package },
+  { key:"length",     type:"radio",    icon:"clock",    eyebrow:"אורך",        title:"כמה זמן יאורך הסרטון?", hint:"", source:OPTIONS.length },
+  { key:"style",      type:"radio",    icon:"aperture", eyebrow:"נראות",       title:"ריאליסטי, או נראות שמזוהה כ-AI?", hint:"", source:OPTIONS.style },
+  { key:"concept",    type:"radio",    icon:"bulb",     eyebrow:"קריאטיב",     title:"יש לך כבר רעיון קריאטיבי?", hint:"", source:OPTIONS.concept },
+  { key:"purpose",    type:"radio",    icon:"target",   eyebrow:"מטרה",        title:"למה הסרטון ישמש?", hint:"", source:OPTIONS.purpose },
+  { key:"language",   type:"radio",    icon:"globe",    eyebrow:"שפה",         title:"באיזו שפה הסרטון?", hint:"", source:OPTIONS.language },
+  { key:"subtitles",  type:"radio",    icon:"caption",  eyebrow:"כתוביות",     title:"נדרשות כתוביות?", hint:"", source:OPTIONS.subtitles },
+  { key:"formats",    type:"checkbox", icon:"frame",    eyebrow:"פורמט",       title:"אילו פורמטים / יחסי גובה-רוחב נדרשים?", hint:"אפשר לבחור כמה", source:OPTIONS.formats },
+  { key:"summary",    type:"summary" },
+];
+
+let current = 0;
+const answers = {};
+const qSteps = steps.filter(s => s.type === "radio" || s.type === "checkbox");
+
+function renderScrubber(){
+  if(current === 0) return "";
+  const qIndex = qSteps.findIndex(s => s.key === steps[current].key);
+  const total = qSteps.length;
+  const isLast = steps[current].type === "summary";
+  const pos = isLast ? total : (qIndex + 1);
+  const pct = (pos / total) * 100;
+  return `
+    <div class="scrubber">
+      <div class="scrubber-track">
+        <div class="scrubber-fill" style="width:${pct}%"></div>
+        <div class="scrubber-head" style="right:${pct}%"></div>
+      </div>
+      <div class="scrubber-labels">
+        <span>${isLast ? "סיכום" : `שאלה ${pos} מתוך ${total}`}</span>
+        <span>${Math.round(pct)}%</span>
+      </div>
+    </div>`;
+}
+
+function goTo(idx){
+  current = Math.max(0, Math.min(steps.length-1, idx));
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function optionCard(name, value, label, checked, isCheckbox){
+  return `
+    <label class="opt ${isCheckbox?'checkbox':''}">
+      <input type="${isCheckbox?'checkbox':'radio'}" name="${name}" value="${value}" ${checked?'checked':''}>
+      <span class="label-block">${label}</span>
+      <span class="mark-shape">${ICONS.check}</span>
+    </label>`;
+}
+
+function buildWhatsAppMessage(){
+  const lines = ["היי, מילאתי את שאלון ההיכרות באתר ואשמח להצעת מחיר 🎬", ""];
+  qSteps.forEach(step=>{
+    const val = answers[step.key];
+    if(!val) return;
+    if(step.type === "checkbox"){
+      const labels = val.map(v=>step.source[v].label).join(", ");
+      lines.push(`*${step.title}*\n${labels}`, "");
+    } else {
+      lines.push(`*${step.title}*\n${step.source[val].label}`, "");
+    }
+  });
+  return lines.join("\n");
+}
+
+function checkCanProceed(step){
+  if(step.type === "radio") return !!answers[step.key];
+  if(step.type === "checkbox") return (answers[step.key]||[]).length > 0;
+  return true;
+}
+
+let reelTimer = null;
+function initReel(){
+  const reel = document.getElementById("reel");
+  const nav = document.getElementById("reel-nav");
+  if(!reel || !nav) return;
+  const slides = [...reel.querySelectorAll(".reel-slide")];
+  const dots = [...nav.querySelectorAll("button")];
+  let idx = 0;
+
+  function show(i){
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=> s.classList.toggle("active", n===idx));
+    dots.forEach((d,n)=> d.classList.toggle("active", n===idx));
+  }
+  function next(){ show(idx+1); }
+
+  dots.forEach(d=> d.addEventListener("click", ()=>{
+    show(parseInt(d.dataset.i,10));
+    resetTimer();
+  }));
+
+  function resetTimer(){
+    if(reelTimer) clearInterval(reelTimer);
+    reelTimer = setInterval(next, 4200);
+  }
+  resetTimer();
+  reel.addEventListener("mouseenter", ()=> clearInterval(reelTimer));
+  reel.addEventListener("mouseleave", resetTimer);
+}
+
+function render(){
+  const app = document.getElementById("app");
+  const step = steps[current];
+
+  if(step.type !== "intro" && reelTimer){ clearInterval(reelTimer); reelTimer = null; }
+
+  if(step.type === "intro"){
+    app.innerHTML = `
+      <div class="hero-grid">
+        <div class="hero-visual">
+          <div class="hero-blob"></div>
+          <div class="reel" id="reel">
+            ${SHOWCASE.map((s,i)=>`
+              <div class="reel-slide ${i===0?'active':''}" data-i="${i}"
+                   style="background-image:linear-gradient(135deg, ${s.from}, ${s.to});">
+                ${s.videoSrc ? `<video src="${s.videoSrc}" autoplay muted loop playsinline></video>` : ``}
+                <div class="reel-top">
+                  <span class="reel-badge">AI VIDEO</span>
+                  <span class="reel-dot-live"></span>
+                </div>
+                <div class="reel-center">
+                  <span class="reel-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+                  </span>
+                </div>
+                <div class="reel-label">${s.label}</div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="reel-nav" id="reel-nav">
+            ${SHOWCASE.map((_,i)=>`<button data-i="${i}" class="${i===0?'active':''}" aria-label="שקופית ${i+1}"></button>`).join("")}
+          </div>
+          <div class="hero-tag">נבנה במיוחד עבורכם ✦</div>
+        </div>
+        <div class="hero-copy">
+          <div class="hero-eyebrow">LORIN AI STUDIO</div>
+          <h1>ספרו לי על<br>הסרטון שלכם</h1>
+          <p>איזה כיף שהחלטתם לקחת את העסק שלכם צעד אחד קדימה! כמה שאלות קצרות יעזרו לי להבין בדיוק מה אתם צריכים ונוכל לדייק את העבודה ביחד.</p>
+          <div class="hero-meta-list">
+            <span>${ICONS.clock}${qSteps.length} שאלות קצרות</span>
+            <span>${ICONS.clock}כדקה-שתיים למילוי השאלון</span>
+          </div>
+          <button class="btn-start" id="btn-start">בואו נתחיל ${ICONS.arrowLeft}</button>
+        </div>
+      </div>
+    `;
+    document.getElementById("btn-start").addEventListener("click", ()=> goTo(1));
+    initReel();
+    return;
+  }
+
+  let bodyHtml = "";
+  let headHtml = "";
+
+  if(step.type === "radio" || step.type === "checkbox"){
+    headHtml = `
+      <div class="q-head">
+        <span class="q-icon">${ICONS[step.icon]}</span>
+        <div>
+          <div class="q-eyebrow">${step.eyebrow}</div>
+          <h2>${step.title}</h2>
+        </div>
+      </div>
+      ${step.hint ? `<p class="q-hint">${step.hint}</p>` : `<div style="margin-bottom:22px"></div>`}
+    `;
+    if(step.type === "radio"){
+      bodyHtml = `<div class="options">` + Object.entries(step.source).map(([key,val])=>
+        optionCard(step.key, key, val.label, answers[step.key]===key, false)
+      ).join("") + `</div>`;
+    } else {
+      const selected = answers[step.key] || [];
+      bodyHtml = `<div class="options">` + Object.entries(step.source).map(([key,val])=>
+        optionCard(step.key, key, val.label, selected.includes(key), true)
+      ).join("") + `</div>`;
+    }
+  } else if(step.type === "summary"){
+    const message = buildWhatsAppMessage();
+    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    headHtml = `
+      <div class="q-head">
+        <span class="q-icon">${ICONS.check}</span>
+        <div>
+          <div class="q-eyebrow">שלב אחרון</div>
+          <h2>סיכום התשובות שלך</h2>
+        </div>
+      </div>
+      <div style="margin-bottom:22px"></div>
+    `;
+    bodyHtml = `
+      <div class="recap-rows">
+        ${qSteps.filter(s=>answers[s.key]).map(s=>{
+          const val = answers[s.key];
+          const text = s.type==="checkbox" ? val.map(v=>s.source[v].label).join("، ") : s.source[val].label;
+          return `<div class="r-row"><span>${s.title}</span><span>${text}</span></div>`;
+        }).join("")}
+      </div>
+      <a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">
+        ${ICONS.whatsapp} שליחה בוואטסאפ
+      </a>
+    `;
+  }
+
+  const isLast = step.type === "summary";
+  const canProceed = checkCanProceed(step);
+
+  app.innerHTML = `
+    ${renderScrubber()}
+    <div class="screen-shell">
+      <div class="screen-inner anim-in" id="screen-inner">
+        ${headHtml}
+        ${bodyHtml}
+        <div class="nav-row">
+          <button class="btn-ghost" id="btn-back">${ICONS.arrowLeft} הקודם</button>
+          ${!isLast ? `<button class="btn-primary" id="btn-next" ${canProceed?'':'disabled'}>הבא</button>` : `<span></span>`}
+        </div>
+      </div>
+    </div>
+  `;
+
+  attachHandlers(step);
+}
+
+function attachHandlers(step){
+  const scope = document.getElementById("screen-inner");
+  if(!scope) return;
+
+  scope.querySelectorAll('input[type=radio]').forEach(inp=>{
+    inp.addEventListener('change', ()=>{ answers[step.key] = inp.value; render(); });
+  });
+  scope.querySelectorAll('input[type=checkbox]').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const set = new Set(answers[step.key]||[]);
+      if(inp.checked) set.add(inp.value); else set.delete(inp.value);
+      answers[step.key] = Array.from(set);
+      render();
+    });
+  });
+  const back = document.getElementById('btn-back');
+  if(back) back.addEventListener('click', ()=> goTo(current-1));
+  const next = document.getElementById('btn-next');
+  if(next) next.addEventListener('click', ()=> goTo(current+1));
+}
+
+render();
+</script>
+</body>
+</html>
