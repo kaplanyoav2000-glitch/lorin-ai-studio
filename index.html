@@ -9,21 +9,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=David+Libre:wght@400;500;700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #FFFFFF;
-    --cream: #17140F;
-    --cream-dim: #837A68;
-    --ink: #17140F;
-    --ink-soft: #6B6252;
-    --gold: #C9A15C;
-    --gold-bright: #B98B3E;
-    --gold-deep: #9C7A3F;
-    --rust: #B5573A;
+    --bg: #F4EEE1;
+    --cream: #F4EEE1;
+    --cream-soft: #ECE3D0;
+    --espresso: #2B2018;
+    --espresso-soft: #362A1F;
+    --ink: #3A2E22;
+    --ink-soft: #8C7C63;
+    --gold: #C9A876;
+    --gold-deep: #A9835A;
     --whatsapp: #2E7D5B;
-    --whatsapp-deep: #235F45;
-    --line-dark: #E7E1D2;
-    --line-paper: #E2DBC7;
-    --paper-card: #FFFFFF;
-    --track: #ECE6D6;
+    --line: #DCCFAF;
+    --track: #E2D6BC;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -38,213 +35,200 @@
   .wrap{max-width:760px; margin:0 auto; padding: 48px 20px 90px; position:relative; z-index:1;}
 
   /* ---------- Top mark ---------- */
-  .mark{ display:flex; align-items:center; gap:12px; margin-bottom: 58px; }
+  .mark{ display:flex; align-items:center; gap:13px; margin-bottom: 64px; }
   .mark-icon{
-    width:38px; height:38px; flex-shrink:0; border-radius:50%;
-    background:var(--ink); display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; flex-shrink:0; border-radius:50%;
+    border:1.3px solid var(--ink); display:flex; align-items:center; justify-content:center;
   }
-  .mark-icon svg{ width:15px; height:15px; color:var(--gold); }
-  .mark-text{ display:flex; flex-direction:column; line-height:1.15; }
-  .mark-text b{ font-family:'Frank Ruhl Libre', serif; font-size:18px; font-weight:700; color:var(--ink); }
-  .mark-text span{ font-size:10.5px; letter-spacing:0.14em; color:var(--gold-deep); font-weight:600; }
+  .mark-icon svg{ width:13px; height:13px; color:var(--gold-deep); }
+  .mark-text{ display:flex; flex-direction:column; line-height:1.2; }
+  .mark-text b{ font-family:'Frank Ruhl Libre', serif; font-size:16px; font-weight:500; color:var(--ink); text-transform:uppercase; letter-spacing:0.12em; }
+  .mark-text span{ font-size:10px; letter-spacing:0.18em; color:var(--gold-deep); font-weight:500; margin-top:3px; }
 
   /* ---------- Hero / intro ---------- */
-  .hero-grid{
-    display:grid; grid-template-columns: 1fr 1.1fr; gap:60px; align-items:center;
-    padding: 30px 0 20px;
-  }
-  @media (max-width:760px){
-    .hero-grid{ grid-template-columns: 1fr; gap:36px; }
-    .hero-visual{ order:-1; max-width:340px; margin:0 auto; }
-  }
+  .hero{ max-width:560px; padding: 20px 0 10px; }
 
   .hero-eyebrow{
-    font-size:11.5px; letter-spacing:0.16em; color:var(--gold-deep); font-weight:600;
-    margin-bottom:16px;
+    font-size:11px; letter-spacing:0.2em; color:var(--gold-deep); font-weight:500;
+    margin-bottom:18px;
   }
   .hero-copy h1{
     font-family:'David Libre', serif; font-weight:500;
-    font-size: clamp(34px, 5.6vw, 52px); line-height:1.22; margin:0 0 22px;
-    color:var(--ink); letter-spacing:0.005em;
+    font-size: clamp(34px, 5.6vw, 52px); line-height:1.25; margin:0 0 24px;
+    color:var(--ink); letter-spacing:0.01em;
   }
   .hero-copy p{
     font-family:'David Libre', serif; font-weight:400;
-    font-size:18px; color:var(--ink-soft); line-height:1.8;
-    max-width:42ch; margin: 0 0 30px;
+    font-size:18px; color:var(--ink-soft); line-height:1.85;
+    max-width:42ch; margin: 0 0 32px;
   }
-  .hero-meta-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:36px; }
+  .hero-meta-list{ display:flex; flex-direction:column; gap:11px; margin-bottom:38px; }
   .hero-meta-list span{
-    display:flex; align-items:center; gap:9px; font-size:13.5px; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px; font-size:13px; color:var(--ink-soft);
+    letter-spacing:0.02em;
   }
-  .hero-meta-list svg{ width:15px; height:15px; color:var(--gold-deep); flex-shrink:0; }
+  .hero-meta-list svg{ width:14px; height:14px; color:var(--gold-deep); flex-shrink:0; }
 
-  /* video mock visual */
-  .hero-visual{ position:relative; }
-  .hero-blob{
-    position:absolute; width:300px; height:300px; border-radius:50%;
-    background: radial-gradient(circle, rgba(201,161,92,0.32), rgba(201,161,92,0) 72%);
-    top:50%; left:50%; transform:translate(-50%,-50%); z-index:0;
+  /* ---------- Our Story section ---------- */
+  .story{
+    margin-top:70px; padding-top:56px; border-top:1px solid var(--line);
+    max-width:560px;
   }
-  .reel{
-    position:relative; z-index:1; aspect-ratio: 4/5; max-height:460px;
-    background:var(--ink); border:1.5px solid var(--ink);
-    box-shadow: 9px 9px 0 0 rgba(201,161,92,0.35);
-    overflow:hidden;
+  .story-eyebrow{
+    font-size:11px; letter-spacing:0.2em; color:var(--gold-deep); font-weight:500;
+    margin-bottom:14px;
   }
-  .reel-slide{
-    position:absolute; inset:0; opacity:0; transition:opacity 1s ease;
-    background-size:200% 200%; background-position:30% 30%;
-    animation: reelDrift 14s ease-in-out infinite alternate;
-    display:flex; flex-direction:column; justify-content:space-between; padding:20px;
-    color:#fff;
+  .story h2{
+    font-family:'Frank Ruhl Libre', serif; font-weight:500; text-transform:uppercase;
+    letter-spacing:0.06em; font-size: clamp(24px, 3.6vw, 30px); margin:0 0 22px; color:var(--ink);
   }
-  .reel-slide.active{ opacity:1; }
-  @keyframes reelDrift{
-    from{ background-position:20% 25%; }
-    to{ background-position:75% 70%; }
+  .story p{
+    font-size:15.5px; color:var(--ink-soft); line-height:1.9; margin:0 0 18px; max-width:56ch;
   }
-  .reel-slide video{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1;
+  .story blockquote{
+    margin:26px 0 0; padding-right:18px; border-right:2px solid var(--gold-deep);
+    font-family:'David Libre', serif; font-style:italic; font-size:17px;
+    color:var(--gold-deep); line-height:1.7; max-width:52ch;
   }
-  .reel-top{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:1; }
-  .reel-badge{
-    font-size:10px; letter-spacing:0.12em; color:var(--gold);
-    border:1px solid rgba(201,161,92,0.5); padding:5px 10px; background:rgba(0,0,0,0.2);
-  }
-  .reel-dot-live{ width:8px; height:8px; border-radius:50%; background:#E1503B; box-shadow:0 0 0 3px rgba(225,80,59,0.28); margin-top:3px; }
-  .reel-center{ flex:1; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
-  .reel-play{
-    width:56px; height:56px; border-radius:50%; background:rgba(255,255,255,0.16);
-    border:1.3px solid rgba(255,255,255,0.5); backdrop-filter: blur(2px);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .reel-play svg{ width:19px; height:19px; color:#fff; }
-  .reel-label{ position:relative; z-index:1; font-size:14.5px; font-weight:600; }
 
-  .reel-nav{
-    display:flex; justify-content:center; gap:8px; margin-top:16px; position:relative; z-index:1;
+  /* ---------- Site footer ---------- */
+  .site-footer{
+    background:var(--espresso); color:#E7DCC6; margin-top:80px;
   }
-  .reel-nav button{
-    width:20px; height:3px; padding:0; border:none; background:var(--track); cursor:pointer;
-    transition: background .2s ease, width .2s ease;
+  .site-footer-inner{ max-width:760px; margin:0 auto; padding: 56px 20px 44px; }
+  .footer-brand{
+    font-family:'Frank Ruhl Libre', serif; font-weight:500; text-transform:uppercase;
+    letter-spacing:0.16em; font-size:22px; color:var(--gold); margin-bottom:8px;
   }
-  .reel-nav button.active{ background:var(--gold-deep); width:30px; }
+  .footer-tagline{ font-size:11px; letter-spacing:0.18em; color:#9C8E76; margin-bottom:20px; }
+  .footer-desc{ font-size:14.5px; color:#C7B99C; line-height:1.8; max-width:44ch; margin-bottom:28px; }
 
-  .hero-tag{
-    position:absolute; z-index:2; bottom:-18px; left:-14px;
-    background:#fff; border:1.3px solid var(--ink); padding:9px 15px;
-    font-size:12.5px; font-weight:600; color:var(--ink);
-    box-shadow: 5px 5px 0 0 rgba(201,161,92,0.32);
-    transform: rotate(-3deg);
+  .footer-contacts{ display:flex; gap:12px; margin-bottom:40px; }
+  .footer-contact-circle{
+    width:42px; height:42px; border-radius:50%; border:1.2px solid rgba(231,220,198,0.35);
+    display:flex; align-items:center; justify-content:center; color:#E7DCC6;
+    text-decoration:none; transition: border-color .15s ease, color .15s ease;
   }
-  @media (max-width:760px){ .hero-tag{ left:6px; } }
+  .footer-contact-circle:hover{ border-color:var(--gold); color:var(--gold); }
+  .footer-contact-circle svg{ width:17px; height:17px; }
+
+  .footer-connect-label{
+    font-size:11px; letter-spacing:0.18em; color:var(--gold-deep); margin-bottom:14px;
+  }
+  .footer-connect a, .footer-connect span{
+    display:block; font-size:14.5px; color:#E7DCC6; text-decoration:none; margin-bottom:8px;
+  }
+  .footer-connect a:hover{ color:var(--gold); }
+
+  /* ---------- Buttons — all outline / ghost style ---------- */
+  .nav-row{
+    margin-top:auto; display:flex; justify-content:space-between; align-items:center;
+    padding-top: 32px;
+  }
+  button{
+    font-family:'IBM Plex Sans Hebrew', sans-serif; font-size:14.5px; font-weight:500;
+    letter-spacing:0.03em;
+    background:transparent; cursor:pointer; padding: 14px 30px;
+    transition: background .15s ease, color .15s ease, border-color .15s ease, opacity .15s ease;
+  }
+  button:active{ transform: scale(0.98); }
 
   .btn-start{
-    background:var(--gold); color:#231B0E; font-weight:600; font-size:16px;
-    padding: 17px 40px; display:inline-flex; align-items:center; gap:10px;
+    border:1.2px solid var(--gold-deep); color:var(--gold-deep); font-size:14.5px;
+    padding: 16px 38px; display:inline-flex; align-items:center; gap:10px;
   }
-  .btn-start:hover{ background:var(--gold-bright); }
-  .btn-start svg{ width:17px; height:17px; }
+  .btn-start:hover{ background:var(--gold-deep); color:var(--cream); }
+  .btn-start svg{ width:15px; height:15px; }
+
+  .btn-primary{ border:1.2px solid var(--ink); color:var(--ink); display:inline-flex; align-items:center; gap:8px; }
+  .btn-primary:hover{ background:var(--ink); color:var(--cream); }
+  .btn-primary:disabled{ opacity:.35; cursor:not-allowed; }
+  .btn-primary:disabled:hover{ background:transparent; color:var(--ink); }
+
+  .btn-ghost{ border:none; color:var(--ink-soft); padding:14px 6px; }
+  .btn-ghost:hover{ color:var(--ink); }
 
   /* ---------- Scrubber progress ---------- */
-  .scrubber{ margin: 0 0 26px; }
+  .scrubber{ margin: 0 0 30px; }
   .scrubber-track{
-    position:relative; height:2px; background:var(--track); border-radius:2px;
+    position:relative; height:1px; background:var(--track);
   }
   .scrubber-fill{
     position:absolute; top:0; bottom:0; right:0; width:0%;
-    background:linear-gradient(90deg, var(--gold-deep), var(--gold));
-    border-radius:2px; transition: width .5s cubic-bezier(.65,0,.35,1);
+    background:var(--gold-deep);
+    transition: width .5s cubic-bezier(.65,0,.35,1);
   }
   .scrubber-head{
-    position:absolute; top:50%; width:11px; height:11px; border-radius:50%;
-    background:var(--gold); transform:translate(50%,-50%);
-    box-shadow: 0 0 0 4px rgba(201,161,92,0.16), 0 0 10px rgba(201,161,92,0.4);
+    position:absolute; top:50%; width:8px; height:8px; border-radius:50%;
+    background:var(--gold-deep); transform:translate(50%,-50%);
     transition: right .5s cubic-bezier(.65,0,.35,1);
   }
   .scrubber-labels{
-    display:flex; justify-content:space-between; margin-top:10px;
-    font-size:11.5px; color:var(--cream-dim); letter-spacing:0.01em;
+    display:flex; justify-content:space-between; margin-top:12px;
+    font-size:11px; color:var(--ink-soft); letter-spacing:0.06em;
   }
 
-  /* ---------- Screen (the framed question card) ---------- */
+  /* ---------- Screen (the question panel) ---------- */
   .screen-shell{
     position:relative;
-    border:1.5px solid var(--ink);
-    box-shadow: 8px 8px 0 0 rgba(201,161,92,0.22);
-    background:var(--paper-card);
+    border-top:1px solid var(--line);
+    background:transparent;
     color:var(--ink);
   }
   .screen-inner{
-    padding: 40px 38px;
+    padding: 40px 4px;
     min-height: 380px;
     display:flex; flex-direction:column;
   }
-  @media (max-width:560px){ .screen-inner{ padding: 30px 22px; } }
+  @media (max-width:560px){ .screen-inner{ padding: 32px 2px; } }
 
-  .anim-in{ animation: screenIn .42s cubic-bezier(.2,.8,.2,1) both; }
+  .anim-in{ animation: screenIn .45s cubic-bezier(.2,.8,.2,1) both; }
   @keyframes screenIn{
-    from{ opacity:0; transform: translateY(10px); }
+    from{ opacity:0; transform: translateY(8px); }
     to{ opacity:1; transform: translateY(0); }
   }
 
-  .q-head{ display:flex; align-items:flex-start; gap:14px; margin-bottom: 8px; }
+  .q-head{ display:flex; align-items:flex-start; gap:16px; margin-bottom: 10px; }
   .q-icon{
-    width:38px; height:38px; flex-shrink:0; border-radius:50%;
-    background:#EFE4C8; display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; flex-shrink:0; border-radius:50%;
+    border:1.2px solid var(--gold-deep); display:flex; align-items:center; justify-content:center;
     color:var(--gold-deep);
   }
-  .q-icon svg{ width:19px; height:19px; }
-  .q-eyebrow{ font-size:12px; color:var(--ink-soft); margin-bottom:3px; letter-spacing:0.01em; }
+  .q-icon svg{ width:17px; height:17px; }
+  .q-eyebrow{ font-size:11px; color:var(--gold-deep); margin-bottom:4px; letter-spacing:0.18em; }
   .q-head h2{
-    font-family:'Frank Ruhl Libre', serif; font-weight:700;
-    font-size: clamp(21px, 3.2vw, 26px); margin:0; line-height:1.3; color:var(--ink);
+    font-family:'Frank Ruhl Libre', serif; font-weight:500;
+    font-size: clamp(22px, 3.2vw, 27px); margin:0; line-height:1.35; color:var(--ink);
   }
-  .q-hint{ color:var(--ink-soft); font-size:14px; margin: 10px 0 24px; line-height:1.6; }
+  .q-hint{ color:var(--ink-soft); font-size:14px; margin: 12px 0 26px; line-height:1.7; }
 
-  .options{ display:grid; gap:9px; margin-bottom: 6px; }
+  .options{ display:flex; flex-direction:column; margin-bottom: 6px; }
   .opt{
-    display:flex; align-items:center; gap:14px;
-    border:1.3px solid var(--line-paper); background:#FFFDF6;
-    padding: 15px 17px; cursor:pointer; font-size:15px; color:var(--ink);
-    transition: border-color .15s ease, background .15s ease, transform .1s ease;
+    display:flex; align-items:center; gap:16px;
+    border:none; border-bottom:1px solid var(--line); background:transparent;
+    padding: 18px 2px; cursor:pointer; font-size:15.5px; color:var(--ink);
+    transition: border-color .15s ease, color .15s ease;
   }
-  .opt:hover{ border-color:var(--gold-deep); }
-  .opt:active{ transform: scale(0.995); }
+  .opt:hover{ color:var(--gold-deep); }
+  .opt:active{ opacity:.85; }
   .opt input{ display:none; }
   .opt .mark-shape{
-    width:19px; height:19px; border-radius:50%; border:1.5px solid #B8AC8C;
+    width:17px; height:17px; border-radius:50%; border:1.2px solid var(--ink-soft);
     flex-shrink:0; display:flex; align-items:center; justify-content:center; order:2;
   }
-  .opt.checkbox .mark-shape{ border-radius:5px; }
-  .opt .mark-shape svg{ width:11px; height:11px; opacity:0; transform:scale(0.4); transition: all .18s cubic-bezier(.2,.8,.2,1); color:#fff; }
+  .opt.checkbox .mark-shape{ border-radius:4px; }
+  .opt .mark-shape svg{ width:9px; height:9px; opacity:0; transform:scale(0.4); transition: all .18s cubic-bezier(.2,.8,.2,1); color:#fff; }
   .opt input:checked ~ .mark-shape{ background:var(--gold-deep); border-color:var(--gold-deep); }
   .opt input:checked ~ .mark-shape svg{ opacity:1; transform:scale(1); }
-  .opt:has(input:checked){ border-color:var(--gold-deep); background:#FBF3E1; }
+  .opt:has(input:checked){ border-color:var(--gold-deep); }
+  .opt:has(input:checked) .label-block{ font-weight:600; color:var(--ink); }
   .opt .label-block{ flex:1; }
 
-  .nav-row{
-    margin-top:auto; display:flex; justify-content:space-between; align-items:center;
-    padding-top: 30px;
-  }
-  button{
-    font-family:'IBM Plex Sans Hebrew', sans-serif; font-size:15px; font-weight:500;
-    border:none; cursor:pointer; padding: 14px 28px;
-    transition: transform .12s ease, opacity .15s ease, background .15s ease;
-  }
-  button:active{ transform: scale(0.97); }
-  .btn-primary{ background:var(--ink); color:#FBF6EA; display:inline-flex; align-items:center; gap:8px; }
-  .btn-primary:hover{ background:var(--gold-deep); color:#fff; }
-  .btn-primary:disabled{ opacity:.3; cursor:not-allowed; }
-  .btn-primary:disabled:hover{ background:var(--ink); }
-  .btn-ghost{ background:transparent; color:var(--ink-soft); padding:14px 8px; }
-  .btn-ghost:hover{ color:var(--ink); }
-
   /* ---------- Recap + WhatsApp ---------- */
-  .recap-rows{ margin: 4px 0 22px; }
+  .recap-rows{ margin: 4px 0 26px; }
   .r-row{
-    display:flex; justify-content:space-between; gap:16px; padding:13px 0;
-    border-bottom:1px solid #E7DCBE; font-size:14px;
+    display:flex; justify-content:space-between; gap:16px; padding:14px 0;
+    border-bottom:1px solid var(--line); font-size:14px;
   }
   .r-row:last-child{ border-bottom:none; }
   .r-row span:first-child{ color:var(--ink-soft); }
@@ -252,13 +236,13 @@
 
   .wa-btn{
     display:flex; align-items:center; gap:11px; justify-content:center;
-    background:var(--whatsapp); color:#fff; text-decoration:none;
-    padding:16px 30px; font-weight:600; font-size:16px; width:100%;
-    transition: background .15s ease, transform .12s ease;
+    border:1.2px solid var(--whatsapp); color:var(--whatsapp); text-decoration:none;
+    padding:16px 30px; font-weight:500; font-size:15px; width:100%; letter-spacing:0.03em;
+    transition: background .15s ease, color .15s ease;
   }
-  .wa-btn:hover{ background:var(--whatsapp-deep); }
-  .wa-btn:active{ transform: scale(0.98); }
-  .wa-btn svg{ width:21px; height:21px; flex-shrink:0; }
+  .wa-btn:hover{ background:var(--whatsapp); color:#fff; }
+  .wa-btn:active{ opacity:.85; }
+  .wa-btn svg{ width:19px; height:19px; flex-shrink:0; }
 </style>
 </head>
 <body>
@@ -276,24 +260,35 @@
   <div id="app"></div>
 </div>
 
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-brand">LORIN</div>
+    <div class="footer-tagline">AI VIDEO STUDIO</div>
+    <p class="footer-desc">מפיקה סרטוני AI מותאמים אישית לעסקים — מהרעיון ועד התוצר המוגמר, בלי צוות צילום ובלי חודשים של המתנה.</p>
+    <div class="footer-contacts">
+      <a class="footer-contact-circle" href="https://wa.me/972542885085" target="_blank" rel="noopener" aria-label="וואטסאפ">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.01a7.94 7.94 0 0 0 5.54-13.58ZM12.05 18.5h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.55 6.55 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.54 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.19-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.31-1.58-.98a5.94 5.94 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.34.1-.12.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.24-.18.19-.68.67-.68 1.63s.7 1.9.8 2.03c.1.13 1.38 2.1 3.34 2.94.47.2.83.32 1.12.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>
+      </a>
+      <a class="footer-contact-circle" href="mailto:info@lorinaistudio.co.il" id="footer-mail-circle" aria-label="אימייל">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.4"/><path d="M4 7l8 6 8-6"/></svg>
+      </a>
+    </div>
+    <div class="footer-connect-label">CONNECT</div>
+    <div class="footer-connect" id="footer-connect"></div>
+  </div>
+</footer>
+
 <script>
 /* ====================== WhatsApp target number ====================== */
 const WHATSAPP_NUMBER = "972542885085"; // 054-288-5085 בפורמט בינלאומי ללא + או 0
 
-/* ====================== HOMEPAGE VIDEO SHOWCASE ======================
-   5 סרטונים שמתחלפים אוטומטית בעמוד הבית.
-   לכל שקופית: label (הקטגוריה שמוצגת), ו-videoSrc (קישור לקובץ mp4/webm).
-   כל עוד videoSrc ריק — תוצג רקע גרדיאנט אנימטיבי כ"מציין מקום" בלבד.
-   ברגע שיש קבצי וידאו אמיתיים — פשוט מכניסים את הכתובת ל-videoSrc
-   (אפשר גם קישור מאחסון כמו Cloudinary / S3 / Vimeo direct file, לא YouTube iframe).
+/* ====================== FOOTER CONTACT DETAILS ======================
+   עדכני כאן את הפרטים האמיתיים כשיהיו זמינים.
    ======================================================================= */
-const SHOWCASE = [
-  { label:"קמפיין פרסומי",   from:"#4A3419", to:"#C9A15C", videoSrc:null },
-  { label:"סרטון מוצר",      from:"#241C10", to:"#B5573A", videoSrc:null },
-  { label:"תוכן לרשתות",     from:"#14110D", to:"#8C6B36", videoSrc:null },
-  { label:"הדרכה ארגונית",   from:"#2A2013", to:"#6E5730", videoSrc:null },
-  { label:"סרטון לאירוע",    from:"#301F12", to:"#D8B57A", videoSrc:null },
-];
+const SOCIAL = {
+  email: "info@lorinaistudio.co.il",   // TODO: להחליף באימייל האמיתי
+  instagram: "lorin.ai.studio",        // TODO: להחליף בשם המשתמש האמיתי באינסטגרם
+};
 
 /* ====================== ICONS ====================== */
 const ICONS = {
@@ -309,6 +304,8 @@ const ICONS = {
   check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4.5 4.5L19 8"/></svg>`,
   arrowLeft: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>`,
   whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.01a7.94 7.94 0 0 0 5.54-13.58ZM12.05 18.5h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.55 6.55 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.54 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.19-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.31-1.58-.98a5.94 5.94 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.34.1-.12.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.24-.18.19-.68.67-.68 1.63s.7 1.9.8 2.03c.1.13 1.38 2.1 3.34 2.94.47.2.83.32 1.12.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>`,
+  mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.4"/><path d="M4 7l8 6 8-6"/></svg>`,
+  instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.6" cy="7.4" r="0.6" fill="currentColor" stroke="none"/></svg>`,
 };
 
 /* ====================== OPTIONS ====================== */
@@ -428,70 +425,13 @@ function checkCanProceed(step){
   return true;
 }
 
-let reelTimer = null;
-function initReel(){
-  const reel = document.getElementById("reel");
-  const nav = document.getElementById("reel-nav");
-  if(!reel || !nav) return;
-  const slides = [...reel.querySelectorAll(".reel-slide")];
-  const dots = [...nav.querySelectorAll("button")];
-  let idx = 0;
-
-  function show(i){
-    idx = (i + slides.length) % slides.length;
-    slides.forEach((s,n)=> s.classList.toggle("active", n===idx));
-    dots.forEach((d,n)=> d.classList.toggle("active", n===idx));
-  }
-  function next(){ show(idx+1); }
-
-  dots.forEach(d=> d.addEventListener("click", ()=>{
-    show(parseInt(d.dataset.i,10));
-    resetTimer();
-  }));
-
-  function resetTimer(){
-    if(reelTimer) clearInterval(reelTimer);
-    reelTimer = setInterval(next, 4200);
-  }
-  resetTimer();
-  reel.addEventListener("mouseenter", ()=> clearInterval(reelTimer));
-  reel.addEventListener("mouseleave", resetTimer);
-}
-
 function render(){
   const app = document.getElementById("app");
   const step = steps[current];
 
-  if(step.type !== "intro" && reelTimer){ clearInterval(reelTimer); reelTimer = null; }
-
   if(step.type === "intro"){
     app.innerHTML = `
-      <div class="hero-grid">
-        <div class="hero-visual">
-          <div class="hero-blob"></div>
-          <div class="reel" id="reel">
-            ${SHOWCASE.map((s,i)=>`
-              <div class="reel-slide ${i===0?'active':''}" data-i="${i}"
-                   style="background-image:linear-gradient(135deg, ${s.from}, ${s.to});">
-                ${s.videoSrc ? `<video src="${s.videoSrc}" autoplay muted loop playsinline></video>` : ``}
-                <div class="reel-top">
-                  <span class="reel-badge">AI VIDEO</span>
-                  <span class="reel-dot-live"></span>
-                </div>
-                <div class="reel-center">
-                  <span class="reel-play">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
-                  </span>
-                </div>
-                <div class="reel-label">${s.label}</div>
-              </div>
-            `).join("")}
-          </div>
-          <div class="reel-nav" id="reel-nav">
-            ${SHOWCASE.map((_,i)=>`<button data-i="${i}" class="${i===0?'active':''}" aria-label="שקופית ${i+1}"></button>`).join("")}
-          </div>
-          <div class="hero-tag">נבנה במיוחד עבורכם ✦</div>
-        </div>
+      <div class="hero">
         <div class="hero-copy">
           <div class="hero-eyebrow">LORIN AI STUDIO</div>
           <h1>ספרו לי על<br>הסרטון שלכם</h1>
@@ -503,9 +443,16 @@ function render(){
           <button class="btn-start" id="btn-start">בואו נתחיל ${ICONS.arrowLeft}</button>
         </div>
       </div>
+
+      <div class="story">
+        <div class="story-eyebrow">הסיפור שלנו</div>
+        <h2>מרעיון לסרטון מוכן</h2>
+        <p>Lorin AI Studio נולדה מתוך אמונה שכל עסק, גדול כקטן, ראוי לסרטון שיווקי מקצועי — בלי צוות צילום, בלי תקציב ענק, ובלי חודשים של המתנה.</p>
+        <p>בעזרת טכנולוגיית AI מתקדמת אני הופכת רעיון פשוט לסרטון שנראה מקצועי, מדויק למותג שלכם, ומוכן תוך ימים ספורים.</p>
+        <blockquote>"וידאו מקצועי לא חייב לקחת שבועות — הוא יכול להתחיל בכמה שאלות."</blockquote>
+      </div>
     `;
     document.getElementById("btn-start").addEventListener("click", ()=> goTo(1));
-    initReel();
     return;
   }
 
@@ -602,6 +549,13 @@ function attachHandlers(step){
 }
 
 render();
+
+/* Sync footer contact details from the SOCIAL config above */
+document.getElementById("footer-mail-circle").href = `mailto:${SOCIAL.email}`;
+document.getElementById("footer-connect").innerHTML = `
+  <a href="https://instagram.com/${SOCIAL.instagram}" target="_blank" rel="noopener">Instagram · @${SOCIAL.instagram}</a>
+  <a href="mailto:${SOCIAL.email}">${SOCIAL.email}</a>
+`;
 </script>
 </body>
 </html>
