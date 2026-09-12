@@ -85,11 +85,6 @@
   .story p{
     font-size:15.5px; color:var(--ink-soft); line-height:1.9; margin:0 0 18px; max-width:56ch;
   }
-  .story blockquote{
-    margin:26px 0 0; padding-right:18px; border-right:2px solid var(--gold-deep);
-    font-family:'David Libre', serif; font-style:italic; font-size:17px;
-    color:var(--gold-deep); line-height:1.7; max-width:52ch;
-  }
 
   /* ---------- Site footer ---------- */
   .site-footer{
@@ -269,7 +264,7 @@
       <a class="footer-contact-circle" href="https://wa.me/972542885085" target="_blank" rel="noopener" aria-label="וואטסאפ">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.01a7.94 7.94 0 0 0 5.54-13.58ZM12.05 18.5h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.55 6.55 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.54 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.19-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.31-1.58-.98a5.94 5.94 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.34.1-.12.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.24-.18.19-.68.67-.68 1.63s.7 1.9.8 2.03c.1.13 1.38 2.1 3.34 2.94.47.2.83.32 1.12.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>
       </a>
-      <a class="footer-contact-circle" href="mailto:info@lorinaistudio.co.il" id="footer-mail-circle" aria-label="אימייל">
+      <a class="footer-contact-circle" href="mailto:LORINBINNY@GMAIL.COM" id="footer-mail-circle" aria-label="אימייל">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.4"/><path d="M4 7l8 6 8-6"/></svg>
       </a>
     </div>
@@ -286,8 +281,9 @@ const WHATSAPP_NUMBER = "972542885085"; // 054-288-5085 בפורמט בינלא�
    עדכני כאן את הפרטים האמיתיים כשיהיו זמינים.
    ======================================================================= */
 const SOCIAL = {
-  email: "info@lorinaistudio.co.il",   // TODO: להחליף באימייל האמיתי
-  instagram: "lorin.ai.studio",        // TODO: להחליף בשם המשתמש האמיתי באינסטגרם
+  email: "LORINBINNY@GMAIL.COM",
+  instagramUrl: "https://www.instagram.com/lorin_aistudio?stkn=MXM0NGRqazIxMHljYg==",
+  instagramHandle: "lorin_aistudio",
 };
 
 /* ====================== ICONS ====================== */
@@ -446,10 +442,9 @@ function render(){
 
       <div class="story">
         <div class="story-eyebrow">הסיפור שלנו</div>
-        <h2>מרעיון לסרטון מוכן</h2>
+        <h2>סרטון AI מקצועי</h2>
         <p>Lorin AI Studio נולדה מתוך אמונה שכל עסק, גדול כקטן, ראוי לסרטון שיווקי מקצועי — בלי צוות צילום, בלי תקציב ענק, ובלי חודשים של המתנה.</p>
         <p>בעזרת טכנולוגיית AI מתקדמת אני הופכת רעיון פשוט לסרטון שנראה מקצועי, מדויק למותג שלכם, ומוכן תוך ימים ספורים.</p>
-        <blockquote>"וידאו מקצועי לא חייב לקחת שבועות — הוא יכול להתחיל בכמה שאלות."</blockquote>
       </div>
     `;
     document.getElementById("btn-start").addEventListener("click", ()=> goTo(1));
@@ -553,7 +548,7 @@ render();
 /* Sync footer contact details from the SOCIAL config above */
 document.getElementById("footer-mail-circle").href = `mailto:${SOCIAL.email}`;
 document.getElementById("footer-connect").innerHTML = `
-  <a href="https://instagram.com/${SOCIAL.instagram}" target="_blank" rel="noopener">Instagram · @${SOCIAL.instagram}</a>
+  <a href="${SOCIAL.instagramUrl}" target="_blank" rel="noopener">Instagram · @${SOCIAL.instagramHandle}</a>
   <a href="mailto:${SOCIAL.email}">${SOCIAL.email}</a>
 `;
 </script>
