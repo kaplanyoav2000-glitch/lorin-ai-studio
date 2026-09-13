@@ -97,6 +97,13 @@
   .story p{
     font-size:15.5px; color:var(--ink-soft); line-height:1.9; margin:0 0 18px; max-width:56ch;
   }
+  .testimonial-grid{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; margin-top:10px; max-width:560px;
+  }
+  .testimonial-grid img{
+    width:100%; height:auto; display:block; border:1px solid var(--line);
+  }
+  @media (max-width:520px){ .testimonial-grid{ grid-template-columns: 1fr; } }
 
   /* ---------- Site footer ---------- */
   .site-footer{
@@ -363,6 +370,8 @@ const UI = {
              en:"Lorin AI Studio was founded on the belief that every business, big or small, deserves a professional marketing video — without a film crew, a huge budget, or months of waiting." },
   storyP2: { he:"בעזרת טכנולוגיית AI מתקדמת אני הופכת רעיון פשוט לסרטון שנראה מקצועי, מדויק למותג שלכם, ומוכן תוך ימים ספורים.",
              en:"Using advanced AI technology, I turn a simple idea into a video that looks professional, matches your brand, and is ready within just a few days." },
+  testiEyebrow: { he:"מה אומרים עלינו", en:"What clients say" },
+  testiH2: { he:"לקוחות מספרים", en:"Client testimonials" },
   lastStepEyebrow: { he:"שלב אחרון", en:"Last step" },
   summaryTitle: { he:"סיכום התשובות שלך", en:"Summary of your answers" },
   summaryStep: { he:"סיכום", en:"Summary" },
@@ -523,6 +532,17 @@ function render(){
         <h2>${L(UI.storyH2)}</h2>
         <p>${L(UI.storyP1)}</p>
         <p>${L(UI.storyP2)}</p>
+      </div>
+
+      <div class="story">
+        <div class="story-eyebrow">${L(UI.testiEyebrow)}</div>
+        <h2>${L(UI.testiH2)}</h2>
+        <div class="testimonial-grid">
+          <img src="images/testimonial-1.jpg" alt="" loading="lazy">
+          <img src="images/testimonial-2.jpg" alt="" loading="lazy">
+          <img src="images/testimonial-3.jpg" alt="" loading="lazy">
+          <img src="images/testimonial-4.png" alt="" loading="lazy">
+        </div>
       </div>
     `;
     document.getElementById("btn-start").addEventListener("click", ()=> goTo(1));
