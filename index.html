@@ -34,8 +34,9 @@
 
   .wrap{max-width:760px; margin:0 auto; padding: 48px 20px 90px; position:relative; z-index:1;}
 
-  /* ---------- Top mark ---------- */
-  .mark{ display:flex; align-items:center; gap:13px; margin-bottom: 64px; }
+  /* ---------- Top header ---------- */
+  .site-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 64px; gap:16px; flex-wrap:wrap; }
+  .mark{ display:flex; align-items:center; gap:13px; }
   .mark-icon{
     width:36px; height:36px; flex-shrink:0; border-radius:50%;
     border:1.3px solid var(--ink); display:flex; align-items:center; justify-content:center;
@@ -44,6 +45,17 @@
   .mark-text{ display:flex; flex-direction:column; line-height:1.2; }
   .mark-text b{ font-family:'Frank Ruhl Libre', serif; font-size:16px; font-weight:500; color:var(--ink); text-transform:uppercase; letter-spacing:0.12em; }
   .mark-text span{ font-size:10px; letter-spacing:0.18em; color:var(--gold-deep); font-weight:500; margin-top:3px; }
+
+  .lang-toggle{ display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.1em; color:var(--ink-soft); }
+  .lang-toggle button{
+    background:none; border:none; padding:2px 0; font-size:11px; letter-spacing:0.1em;
+    color:var(--ink-soft); cursor:pointer; font-weight:500;
+  }
+  .lang-toggle button.active{ color:var(--gold-deep); text-decoration:underline; text-underline-offset:3px; }
+  .lang-toggle span{ color:var(--line); }
+
+  .icon-flip{ display:inline-flex; }
+  [dir="ltr"] .icon-flip{ transform: scaleX(-1); }
 
   /* ---------- Hero / intro ---------- */
   .hero{ max-width:560px; padding: 20px 0 10px; }
@@ -149,14 +161,14 @@
     position:relative; height:1px; background:var(--track);
   }
   .scrubber-fill{
-    position:absolute; top:0; bottom:0; right:0; width:0%;
+    position:absolute; top:0; bottom:0; inset-inline-start:0; width:0%;
     background:var(--gold-deep);
     transition: width .5s cubic-bezier(.65,0,.35,1);
   }
   .scrubber-head{
     position:absolute; top:50%; width:8px; height:8px; border-radius:50%;
     background:var(--gold-deep); transform:translate(50%,-50%);
-    transition: right .5s cubic-bezier(.65,0,.35,1);
+    transition: inset-inline-start .5s cubic-bezier(.65,0,.35,1);
   }
   .scrubber-labels{
     display:flex; justify-content:space-between; margin-top:12px;
@@ -236,7 +248,7 @@
   }
   .r-row:last-child{ border-bottom:none; }
   .r-row span:first-child{ color:var(--ink-soft); }
-  .r-row span:last-child{ font-weight:600; text-align:left; }
+  .r-row span:last-child{ font-weight:600; text-align:end; }
 
   .recap-idea{ margin: 4px 0 26px; padding-top:6px; }
   .recap-idea-label{ font-size:11px; letter-spacing:0.12em; color:var(--gold-deep); margin-bottom:8px; }
@@ -255,14 +267,21 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="mark">
-    <span class="mark-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
-    </span>
-    <span class="mark-text">
-      <b>Lorin</b>
-      <span>AI STUDIO</span>
-    </span>
+  <div class="site-header">
+    <div class="mark">
+      <span class="mark-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg>
+      </span>
+      <span class="mark-text">
+        <b>Lorin</b>
+        <span>AI STUDIO</span>
+      </span>
+    </div>
+    <div class="lang-toggle" id="lang-toggle">
+      <button data-lang="he" class="active">HE</button>
+      <span>|</span>
+      <button data-lang="en">EN</button>
+    </div>
   </div>
 
   <div id="app"></div>
@@ -271,22 +290,31 @@
 <footer class="site-footer">
   <div class="site-footer-inner">
     <div class="footer-brand">LORIN</div>
-    <div class="footer-tagline">AI VIDEO STUDIO</div>
-    <p class="footer-desc">מפיקה סרטוני AI מותאמים אישית לעסקים — מהרעיון ועד התוצר המוגמר, בלי צוות צילום ובלי חודשים של המתנה.</p>
+    <div class="footer-tagline" id="footer-tagline"></div>
+    <p class="footer-desc" id="footer-desc"></p>
     <div class="footer-contacts">
-      <a class="footer-contact-circle" href="https://wa.me/972542885085" target="_blank" rel="noopener" aria-label="וואטסאפ">
+      <a class="footer-contact-circle" href="https://wa.me/972542885085" target="_blank" rel="noopener" aria-label="WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h.01a7.94 7.94 0 0 0 5.54-13.58ZM12.05 18.5h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.55 6.55 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.54 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.19-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.31-1.58-.98a5.94 5.94 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.34.1-.12.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.38c-.13 0-.34.05-.52.24-.18.19-.68.67-.68 1.63s.7 1.9.8 2.03c.1.13 1.38 2.1 3.34 2.94.47.2.83.32 1.12.42.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>
       </a>
-      <a class="footer-contact-circle" href="mailto:LORINBINNY@GMAIL.COM" id="footer-mail-circle" aria-label="אימייל">
+      <a class="footer-contact-circle" href="mailto:LORINBINNY@GMAIL.COM" id="footer-mail-circle" aria-label="Email">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.4"/><path d="M4 7l8 6 8-6"/></svg>
       </a>
     </div>
-    <div class="footer-connect-label">CONNECT</div>
+    <div class="footer-connect-label" id="footer-connect-label"></div>
     <div class="footer-connect" id="footer-connect"></div>
   </div>
 </footer>
 
 <script>
+/* ====================== LANGUAGE / i18n ====================== */
+let currentLang = "he";
+/** Returns the string for the current language from a {he, en} pair.
+ *  Plain strings are returned as-is (so untranslated bits don't break). */
+function L(x){
+  if(x && typeof x === "object" && ("he" in x || "en" in x)) return x[currentLang] ?? x.he ?? x.en ?? "";
+  return x;
+}
+
 /* ====================== WhatsApp target number ====================== */
 const WHATSAPP_NUMBER = "972542885085"; // 054-288-5085 בפורמט בינלאומי ללא + או 0
 
@@ -318,61 +346,93 @@ const ICONS = {
   instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.6" cy="7.4" r="0.6" fill="currentColor" stroke="none"/></svg>`,
 };
 
+/* ====================== UI TEXT (site chrome, not questionnaire content) ====================== */
+const UI = {
+  heroEyebrow: { he:"LORIN AI STUDIO", en:"LORIN AI STUDIO" },
+  heroH1: { he:"ספרו לי על<br>הסרטון שלכם", en:"Tell me about<br>your video" },
+  heroP: { he:"איזה כיף שהחלטתם לקחת את העסק שלכם צעד אחד קדימה! כמה שאלות קצרות יעזרו לי להבין בדיוק מה אתם צריכים ונוכל לדייק את העבודה ביחד.",
+           en:"So glad you're taking your business one step further! A few quick questions will help me understand exactly what you need, so we can get the work just right, together." },
+  metaCount: { he:"שאלות קצרות", en:"quick questions" },
+  metaTime: { he:"כדקה-שתיים למילוי השאלון", en:"About a minute or two to fill out" },
+  startBtn: { he:"בואו נתחיל", en:"Let's start" },
+  backBtn: { he:"הקודם", en:"Back" },
+  nextBtn: { he:"הבא", en:"Next" },
+  storyEyebrow: { he:"הסיפור שלנו", en:"Our story" },
+  storyH2: { he:"סרטון AI מקצועי", en:"Professional AI video" },
+  storyP1: { he:"Lorin AI Studio נולדה מתוך אמונה שכל עסק, גדול כקטן, ראוי לסרטון שיווקי מקצועי — בלי צוות צילום, בלי תקציב ענק, ובלי חודשים של המתנה.",
+             en:"Lorin AI Studio was founded on the belief that every business, big or small, deserves a professional marketing video — without a film crew, a huge budget, or months of waiting." },
+  storyP2: { he:"בעזרת טכנולוגיית AI מתקדמת אני הופכת רעיון פשוט לסרטון שנראה מקצועי, מדויק למותג שלכם, ומוכן תוך ימים ספורים.",
+             en:"Using advanced AI technology, I turn a simple idea into a video that looks professional, matches your brand, and is ready within just a few days." },
+  lastStepEyebrow: { he:"שלב אחרון", en:"Last step" },
+  summaryTitle: { he:"סיכום התשובות שלך", en:"Summary of your answers" },
+  summaryStep: { he:"סיכום", en:"Summary" },
+  questionOf: { he:(pos,total)=>`שאלה ${pos} מתוך ${total}`, en:(pos,total)=>`Question ${pos} of ${total}` },
+  ideaLabel: { he:"הרעיון שלכם", en:"Your idea" },
+  sendWhatsapp: { he:"שליחה בוואטסאפ", en:"Send on WhatsApp" },
+  ideaPlaceholder: { he:"לדוגמה: אני רוצה סרטון שמראה איך המוצר שלנו פותר בעיה יומיומית, בטון קליל וחברותי, עם דגש על הרגע שבו הלקוח 'מתחבר' לפתרון...",
+                      en:"For example: I want a video that shows how our product solves an everyday problem, in a light, friendly tone, with a focus on the moment the customer 'clicks' with the solution..." },
+  waIntro: { he:"היי, מילאתי את שאלון ההיכרות באתר ואשמח להצעת מחיר 🎬", en:"Hi, I filled out the intake questionnaire on the site and would love a quote 🎬" },
+  footerTagline: { he:"AI VIDEO STUDIO", en:"AI VIDEO STUDIO" },
+  footerDesc: { he:"מפיקה סרטוני AI מותאמים אישית לעסקים — מהרעיון ועד התוצר המוגמר, בלי צוות צילום ובלי חודשים של המתנה.",
+                en:"I produce custom AI videos for businesses — from the idea to the finished product, without a film crew and without months of waiting." },
+  footerConnect: { he:"CONNECT", en:"CONNECT" },
+};
+
 /* ====================== OPTIONS ====================== */
 const OPTIONS = {
   package: {
-    "single": { label: "סרטון בודד" },
-    "pack-3": { label: "חבילה של 3 סרטונים" },
-    "pack-5": { label: "חבילה של 5 סרטונים" },
-    "pack-10": { label: "חבילה של 10 סרטונים" },
+    "single": { label: { he:"סרטון בודד", en:"Single video" } },
+    "pack-3": { label: { he:"חבילה של 3 סרטונים", en:"Package of 3 videos" } },
+    "pack-5": { label: { he:"חבילה של 5 סרטונים", en:"Package of 5 videos" } },
+    "pack-10": { label: { he:"חבילה של 10 סרטונים", en:"Package of 10 videos" } },
   },
   length: {
-    "up-to-15": { label: "עד 15 שניות" },
-    "15-30":    { label: "15–30 שניות" },
-    "30-60":    { label: "30–60 שניות" },
-    "60plus":   { label: "מעל 60 שניות" },
+    "up-to-15": { label: { he:"עד 15 שניות", en:"Up to 15 seconds" } },
+    "15-30":    { label: { he:"15–30 שניות", en:"15–30 seconds" } },
+    "30-60":    { label: { he:"30–60 שניות", en:"30–60 seconds" } },
+    "60plus":   { label: { he:"מעל 60 שניות", en:"Over 60 seconds" } },
   },
   style: {
-    "ai-look":   { label: "נראות שמזוהה כ-AI" },
-    "realistic": { label: "ריאליסטי — קרוב ככל האפשר לצילום אמיתי" },
+    "ai-look":   { label: { he:"נראות שמזוהה כ-AI", en:"A look that reads as AI-generated" } },
+    "realistic": { label: { he:"ריאליסטי — קרוב ככל האפשר לצילום אמיתי", en:"Realistic — as close as possible to real footage" } },
   },
   concept: {
-    "ready": { label: "יש לי רעיון קריאטיבי מגובש" },
-    "none":  { label: "אין לי רעיון עדיין, צריך לפתח קונספט" },
+    "ready": { label: { he:"יש לי רעיון קריאטיבי מגובש", en:"I have a solid creative idea" } },
+    "none":  { label: { he:"אין לי רעיון עדיין, צריך לפתח קונספט", en:"No idea yet, need to develop a concept" } },
   },
   purpose: {
-    "ad":       { label: "פרסומת / קמפיין" },
-    "social":   { label: "תוכן לרשתות חברתיות" },
-    "internal": { label: "הדרכה / תוכן פנימי" },
-    "event":    { label: "אירוע מיוחד" },
+    "ad":       { label: { he:"פרסומת / קמפיין", en:"Ad / campaign" } },
+    "social":   { label: { he:"תוכן לרשתות חברתיות", en:"Social media content" } },
+    "internal": { label: { he:"הדרכה / תוכן פנימי", en:"Training / internal content" } },
+    "event":    { label: { he:"אירוע מיוחד", en:"Special event" } },
   },
   language: {
-    "hebrew":  { label: "עברית" },
-    "english": { label: "אנגלית" },
-    "other":   { label: "שפה אחרת" },
+    "hebrew":  { label: { he:"עברית", en:"Hebrew" } },
+    "english": { label: { he:"אנגלית", en:"English" } },
+    "other":   { label: { he:"שפה אחרת", en:"Another language" } },
   },
   subtitles: {
-    "no":  { label: "לא" },
-    "yes": { label: "כן" },
+    "no":  { label: { he:"לא", en:"No" } },
+    "yes": { label: { he:"כן", en:"Yes" } },
   },
   formats: {
-    "16:9": { label: "16:9 — יוטיוב / אתר" },
-    "9:16": { label: "9:16 — סטוריז / רילס / שורטס" },
-    "1:1":  { label: "1:1 — פיד" },
+    "16:9": { label: { he:"16:9 — יוטיוב / אתר", en:"16:9 — YouTube / website" } },
+    "9:16": { label: { he:"9:16 — סטוריז / רילס / שורטס", en:"9:16 — Stories / Reels / Shorts" } },
+    "1:1":  { label: { he:"1:1 — פיד", en:"1:1 — Feed" } },
   },
 };
 
 const steps = [
   { key:"intro", type:"intro" },
-  { key:"package",    type:"radio",    icon:"stack",    eyebrow:"היקף",         title:"חבילת סרטונים או סרטון בודד?", hint:"", source:OPTIONS.package },
-  { key:"length",     type:"radio",    icon:"clock",    eyebrow:"אורך",        title:"כמה זמן יאורך הסרטון?", hint:"", source:OPTIONS.length },
-  { key:"style",      type:"radio",    icon:"aperture", eyebrow:"נראות",       title:"ריאליסטי, או נראות שמזוהה כ-AI?", hint:"", source:OPTIONS.style },
-  { key:"concept",    type:"radio",    icon:"bulb",     eyebrow:"קריאטיב",     title:"יש לך כבר רעיון קריאטיבי?", hint:"", source:OPTIONS.concept },
-  { key:"purpose",    type:"radio",    icon:"target",   eyebrow:"מטרה",        title:"למה הסרטון ישמש?", hint:"", source:OPTIONS.purpose },
-  { key:"language",   type:"radio",    icon:"globe",    eyebrow:"שפה",         title:"באיזו שפה הסרטון?", hint:"", source:OPTIONS.language },
-  { key:"subtitles",  type:"radio",    icon:"caption",  eyebrow:"כתוביות",     title:"נדרשות כתוביות?", hint:"", source:OPTIONS.subtitles },
-  { key:"formats",    type:"checkbox", icon:"frame",    eyebrow:"פורמט",       title:"אילו פורמטים / יחסי גובה-רוחב נדרשים?", hint:"אפשר לבחור כמה", source:OPTIONS.formats },
-  { key:"ideaDescription", type:"textarea", icon:"message", eyebrow:"הרעיון שלכם", title:"ספרו לי בפירוט על הרעיון לסרטון", hint:"כל פרט עוזר — הסיפור שרוצים לספר, המסר המרכזי, הטון (רציני / קליל / מצחיק), השראה מסרטונים שאהבתם, או כל דבר אחר שיעזור לי להבין את החזון שלכם. אם עדיין אין רעיון גיבוש — כתבו מה שכן ברור, גם אם זו רק תחושה כללית." },
+  { key:"package",    type:"radio",    icon:"stack",    eyebrow:{he:"היקף",en:"Scope"},         title:{he:"חבילת סרטונים או סרטון בודד?",en:"A video package, or a single video?"}, hint:"", source:OPTIONS.package },
+  { key:"length",     type:"radio",    icon:"clock",    eyebrow:{he:"אורך",en:"Length"},        title:{he:"כמה זמן יאורך הסרטון?",en:"How long will the video be?"}, hint:"", source:OPTIONS.length },
+  { key:"style",      type:"radio",    icon:"aperture", eyebrow:{he:"נראות",en:"Look"},       title:{he:"ריאליסטי, או נראות שמזוהה כ-AI?",en:"Realistic, or a look that reads as AI?"}, hint:"", source:OPTIONS.style },
+  { key:"concept",    type:"radio",    icon:"bulb",     eyebrow:{he:"קריאטיב",en:"Creative"},     title:{he:"יש לך כבר רעיון קריאטיבי?",en:"Do you already have a creative idea?"}, hint:"", source:OPTIONS.concept },
+  { key:"purpose",    type:"radio",    icon:"target",   eyebrow:{he:"מטרה",en:"Purpose"},        title:{he:"למה הסרטון ישמש?",en:"What will the video be used for?"}, hint:"", source:OPTIONS.purpose },
+  { key:"language",   type:"radio",    icon:"globe",    eyebrow:{he:"שפה",en:"Language"},         title:{he:"באיזו שפה הסרטון?",en:"What language will the video be in?"}, hint:"", source:OPTIONS.language },
+  { key:"subtitles",  type:"radio",    icon:"caption",  eyebrow:{he:"כתוביות",en:"Subtitles"},     title:{he:"נדרשות כתוביות?",en:"Are subtitles needed?"}, hint:"", source:OPTIONS.subtitles },
+  { key:"formats",    type:"checkbox", icon:"frame",    eyebrow:{he:"פורמט",en:"Format"},       title:{he:"אילו פורמטים / יחסי גובה-רוחב נדרשים?",en:"Which formats / aspect ratios are needed?"}, hint:{he:"אפשר לבחור כמה",en:"You can select more than one"}, source:OPTIONS.formats },
+  { key:"ideaDescription", type:"textarea", icon:"message", eyebrow:{he:"הרעיון שלכם",en:"Your idea"}, title:{he:"ספרו לי בפירוט על הרעיון לסרטון",en:"Tell me in detail about your video idea"}, hint:{he:"כל פרט עוזר — הסיפור שרוצים לספר, המסר המרכזי, הטון (רציני / קליל / מצחיק), השראה מסרטונים שאהבתם, או כל דבר אחר שיעזור לי להבין את החזון שלכם. אם עדיין אין רעיון גיבוש — כתבו מה שכן ברור, גם אם זו רק תחושה כללית.",en:"Every detail helps — the story you want to tell, the core message, the tone (serious / light / funny), inspiration from videos you liked, or anything else that helps me understand your vision. If you don't have a clear idea yet, just write what you do know, even if it's only a general feeling."} },
   { key:"summary",    type:"summary" },
 ];
 
@@ -391,10 +451,10 @@ function renderScrubber(){
     <div class="scrubber">
       <div class="scrubber-track">
         <div class="scrubber-fill" style="width:${pct}%"></div>
-        <div class="scrubber-head" style="right:${pct}%"></div>
+        <div class="scrubber-head" style="inset-inline-start:${pct}%"></div>
       </div>
       <div class="scrubber-labels">
-        <span>${isLast ? "סיכום" : `שאלה ${pos} מתוך ${total}`}</span>
+        <span>${isLast ? L(UI.summaryStep) : L(UI.questionOf)(pos,total)}</span>
         <span>${Math.round(pct)}%</span>
       </div>
     </div>`;
@@ -416,17 +476,18 @@ function optionCard(name, value, label, checked, isCheckbox){
 }
 
 function buildWhatsAppMessage(){
-  const lines = ["היי, מילאתי את שאלון ההיכרות באתר ואשמח להצעת מחיר 🎬", ""];
+  const lines = [L(UI.waIntro), ""];
   qSteps.forEach(step=>{
     const val = answers[step.key];
     if(!val) return;
+    const title = L(step.title);
     if(step.type === "checkbox"){
-      const labels = val.map(v=>step.source[v].label).join(", ");
-      lines.push(`*${step.title}*\n${labels}`, "");
+      const labels = val.map(v=>L(step.source[v].label)).join(", ");
+      lines.push(`*${title}*\n${labels}`, "");
     } else if(step.type === "textarea"){
-      lines.push(`*${step.title}*\n${val}`, "");
+      lines.push(`*${title}*\n${val}`, "");
     } else {
-      lines.push(`*${step.title}*\n${step.source[val].label}`, "");
+      lines.push(`*${title}*\n${L(step.source[val].label)}`, "");
     }
   });
   return lines.join("\n");
@@ -446,22 +507,22 @@ function render(){
     app.innerHTML = `
       <div class="hero">
         <div class="hero-copy">
-          <div class="hero-eyebrow">LORIN AI STUDIO</div>
-          <h1>ספרו לי על<br>הסרטון שלכם</h1>
-          <p>איזה כיף שהחלטתם לקחת את העסק שלכם צעד אחד קדימה! כמה שאלות קצרות יעזרו לי להבין בדיוק מה אתם צריכים ונוכל לדייק את העבודה ביחד.</p>
+          <div class="hero-eyebrow">${L(UI.heroEyebrow)}</div>
+          <h1>${L(UI.heroH1)}</h1>
+          <p>${L(UI.heroP)}</p>
           <div class="hero-meta-list">
-            <span>${ICONS.clock}${qSteps.length} שאלות קצרות</span>
-            <span>${ICONS.clock}כדקה-שתיים למילוי השאלון</span>
+            <span>${ICONS.clock}${qSteps.length} ${L(UI.metaCount)}</span>
+            <span>${ICONS.clock}${L(UI.metaTime)}</span>
           </div>
-          <button class="btn-start" id="btn-start">בואו נתחיל ${ICONS.arrowLeft}</button>
+          <button class="btn-start" id="btn-start">${L(UI.startBtn)} <span class="icon-flip">${ICONS.arrowLeft}</span></button>
         </div>
       </div>
 
       <div class="story">
-        <div class="story-eyebrow">הסיפור שלנו</div>
-        <h2>סרטון AI מקצועי</h2>
-        <p>Lorin AI Studio נולדה מתוך אמונה שכל עסק, גדול כקטן, ראוי לסרטון שיווקי מקצועי — בלי צוות צילום, בלי תקציב ענק, ובלי חודשים של המתנה.</p>
-        <p>בעזרת טכנולוגיית AI מתקדמת אני הופכת רעיון פשוט לסרטון שנראה מקצועי, מדויק למותג שלכם, ומוכן תוך ימים ספורים.</p>
+        <div class="story-eyebrow">${L(UI.storyEyebrow)}</div>
+        <h2>${L(UI.storyH2)}</h2>
+        <p>${L(UI.storyP1)}</p>
+        <p>${L(UI.storyP2)}</p>
       </div>
     `;
     document.getElementById("btn-start").addEventListener("click", ()=> goTo(1));
@@ -472,28 +533,29 @@ function render(){
   let headHtml = "";
 
   if(step.type === "radio" || step.type === "checkbox" || step.type === "textarea"){
+    const hint = L(step.hint);
     headHtml = `
       <div class="q-head">
         <span class="q-icon">${ICONS[step.icon]}</span>
         <div>
-          <div class="q-eyebrow">${step.eyebrow}</div>
-          <h2>${step.title}</h2>
+          <div class="q-eyebrow">${L(step.eyebrow)}</div>
+          <h2>${L(step.title)}</h2>
         </div>
       </div>
-      ${step.hint ? `<p class="q-hint">${step.hint}</p>` : `<div style="margin-bottom:22px"></div>`}
+      ${hint ? `<p class="q-hint">${hint}</p>` : `<div style="margin-bottom:22px"></div>`}
     `;
     if(step.type === "radio"){
       bodyHtml = `<div class="options">` + Object.entries(step.source).map(([key,val])=>
-        optionCard(step.key, key, val.label, answers[step.key]===key, false)
+        optionCard(step.key, key, L(val.label), answers[step.key]===key, false)
       ).join("") + `</div>`;
     } else if(step.type === "checkbox"){
       const selected = answers[step.key] || [];
       bodyHtml = `<div class="options">` + Object.entries(step.source).map(([key,val])=>
-        optionCard(step.key, key, val.label, selected.includes(key), true)
+        optionCard(step.key, key, L(val.label), selected.includes(key), true)
       ).join("") + `</div>`;
     } else if(step.type === "textarea"){
       const existing = answers[step.key] || "";
-      bodyHtml = `<textarea id="idea-textarea" class="idea-textarea" rows="7" placeholder="לדוגמה: אני רוצה סרטון שמראה איך המוצר שלנו פותר בעיה יומיומית, בטון קליל וחברותי, עם דגש על הרגע שבו הלקוח 'מתחבר' לפתרון...">${existing}</textarea>`;
+      bodyHtml = `<textarea id="idea-textarea" class="idea-textarea" rows="7" placeholder="${L(UI.ideaPlaceholder)}">${existing}</textarea>`;
     }
   } else if(step.type === "summary"){
     const message = buildWhatsAppMessage();
@@ -502,8 +564,8 @@ function render(){
       <div class="q-head">
         <span class="q-icon">${ICONS.check}</span>
         <div>
-          <div class="q-eyebrow">שלב אחרון</div>
-          <h2>סיכום התשובות שלך</h2>
+          <div class="q-eyebrow">${L(UI.lastStepEyebrow)}</div>
+          <h2>${L(UI.summaryTitle)}</h2>
         </div>
       </div>
       <div style="margin-bottom:22px"></div>
@@ -512,18 +574,18 @@ function render(){
       <div class="recap-rows">
         ${qSteps.filter(s=>s.type!=="textarea" && answers[s.key]).map(s=>{
           const val = answers[s.key];
-          const text = s.type==="checkbox" ? val.map(v=>s.source[v].label).join("، ") : s.source[val].label;
-          return `<div class="r-row"><span>${s.title}</span><span>${text}</span></div>`;
+          const text = s.type==="checkbox" ? val.map(v=>L(s.source[v].label)).join("، ") : L(s.source[val].label);
+          return `<div class="r-row"><span>${L(s.title)}</span><span>${text}</span></div>`;
         }).join("")}
       </div>
       ${answers.ideaDescription ? `
         <div class="recap-idea">
-          <div class="recap-idea-label">הרעיון שלכם</div>
+          <div class="recap-idea-label">${L(UI.ideaLabel)}</div>
           <p>${answers.ideaDescription.replace(/</g,"&lt;")}</p>
         </div>
       ` : ``}
       <a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">
-        ${ICONS.whatsapp} שליחה בוואטסאפ
+        ${ICONS.whatsapp} ${L(UI.sendWhatsapp)}
       </a>
     `;
   }
@@ -538,8 +600,8 @@ function render(){
         ${headHtml}
         ${bodyHtml}
         <div class="nav-row">
-          <button class="btn-ghost" id="btn-back">${ICONS.arrowLeft} הקודם</button>
-          ${!isLast ? `<button class="btn-primary" id="btn-next" ${canProceed?'':'disabled'}>הבא</button>` : `<span></span>`}
+          <button class="btn-ghost" id="btn-back"><span class="icon-flip">${ICONS.arrowLeft}</span> ${L(UI.backBtn)}</button>
+          ${!isLast ? `<button class="btn-primary" id="btn-next" ${canProceed?'':'disabled'}>${L(UI.nextBtn)}</button>` : `<span></span>`}
         </div>
       </div>
     </div>
@@ -575,12 +637,41 @@ function attachHandlers(step){
 
 render();
 
-/* Sync footer contact details from the SOCIAL config above */
-document.getElementById("footer-mail-circle").href = `mailto:${SOCIAL.email}`;
-document.getElementById("footer-connect").innerHTML = `
-  <a href="${SOCIAL.instagramUrl}" target="_blank" rel="noopener">Instagram · @${SOCIAL.instagramHandle}</a>
-  <a href="mailto:${SOCIAL.email}">${SOCIAL.email}</a>
-`;
+/* ====================== FOOTER (also language-aware) ====================== */
+function renderFooter(){
+  document.getElementById("footer-mail-circle").href = `mailto:${SOCIAL.email}`;
+  document.getElementById("footer-tagline").textContent = L(UI.footerTagline);
+  document.getElementById("footer-desc").textContent = L(UI.footerDesc);
+  document.getElementById("footer-connect-label").textContent = L(UI.footerConnect);
+  document.getElementById("footer-connect").innerHTML = `
+    <a href="${SOCIAL.instagramUrl}" target="_blank" rel="noopener">Instagram · @${SOCIAL.instagramHandle}</a>
+    <a href="mailto:${SOCIAL.email}">${SOCIAL.email}</a>
+  `;
+}
+renderFooter();
+
+/* ====================== LANGUAGE TOGGLE ====================== */
+function applyLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang === "en" ? "en" : "he";
+  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
+  document.querySelectorAll('#lang-toggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  render();
+  renderFooter();
+  try{ localStorage.setItem('lorin-lang', lang); }catch(e){ /* ignore if unavailable */ }
+}
+
+document.querySelectorAll('#lang-toggle button').forEach(btn=>{
+  btn.addEventListener('click', ()=> applyLanguage(btn.dataset.lang));
+});
+
+/* Restore a previously chosen language, if any */
+try{
+  const saved = localStorage.getItem('lorin-lang');
+  if(saved === 'en') applyLanguage('en');
+}catch(e){ /* ignore if unavailable */ }
 </script>
 </body>
 </html>
