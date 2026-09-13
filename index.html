@@ -98,10 +98,14 @@
     font-size:15.5px; color:var(--ink-soft); line-height:1.9; margin:0 0 18px; max-width:56ch;
   }
   .testimonial-grid{
-    display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; margin-top:10px; max-width:560px;
+    display:grid; grid-template-columns: repeat(2, 1fr); gap:26px; margin-top:10px; max-width:560px;
   }
-  .testimonial-grid img{
+  .testimonial-item.wide{ grid-column: 1 / -1; }
+  .testimonial-item img{
     width:100%; height:auto; display:block; border:1px solid var(--line);
+  }
+  .testimonial-caption{
+    margin-top:9px; font-size:12.5px; color:var(--ink-soft); text-align:center; letter-spacing:0.02em;
   }
   @media (max-width:520px){ .testimonial-grid{ grid-template-columns: 1fr; } }
 
@@ -322,6 +326,16 @@ function L(x){
   return x;
 }
 
+/* ====================== TESTIMONIALS ======================
+   4 המלצות אמיתיות. wide:true = תופסת שורה מלאה (לתמונות שדורשות יותר מקום לקריאה).
+   ======================================================================= */
+const TESTIMONIALS = [
+  { img:"images/testimonial-1.jpg", wide:false, he:"יעל, סוכנת נסיעות", en:"Yael, Travel Agent" },
+  { img:"images/testimonial-2.jpg", wide:false, he:"סיוון, בעלת עסק לתוספי תזונה", en:"Sivan, owner of a nutritional supplements business" },
+  { img:"images/testimonial-3.jpg", wide:true,  he:'מיכל, מצוות השיווק של חברת המים הלאומית "מקורות"', en:"Michal, Marketing team at Mekorot (Israel's National Water Company)" },
+  { img:"images/testimonial-4.png", wide:true,  he:'נועה, מחברת תכשירי השיער "ביו-טופ"', en:"Noa, from Bio-Top hair care" },
+];
+
 /* ====================== WhatsApp target number ====================== */
 const WHATSAPP_NUMBER = "972542885085"; // 054-288-5085 בפורמט בינלאומי ללא + או 0
 
@@ -538,10 +552,12 @@ function render(){
         <div class="story-eyebrow">${L(UI.testiEyebrow)}</div>
         <h2>${L(UI.testiH2)}</h2>
         <div class="testimonial-grid">
-          <img src="images/testimonial-1.jpg" alt="" loading="lazy">
-          <img src="images/testimonial-2.jpg" alt="" loading="lazy">
-          <img src="images/testimonial-3.jpg" alt="" loading="lazy">
-          <img src="images/testimonial-4.png" alt="" loading="lazy">
+          ${TESTIMONIALS.map(t=>`
+            <div class="testimonial-item ${t.wide?'wide':''}">
+              <img src="${t.img}" alt="" loading="lazy">
+              <div class="testimonial-caption">${currentLang==='en' ? t.en : t.he}</div>
+            </div>
+          `).join("")}
         </div>
       </div>
     `;
