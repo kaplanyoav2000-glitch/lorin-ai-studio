@@ -97,17 +97,22 @@
   .story p{
     font-size:15.5px; color:var(--ink-soft); line-height:1.9; margin:0 0 18px; max-width:56ch;
   }
-  .testimonial-grid{
-    display:grid; grid-template-columns: repeat(2, 1fr); gap:26px; margin-top:10px; max-width:560px;
+  .testimonial-list{ display:flex; flex-direction:column; margin-top:8px; max-width:600px; }
+  .testimonial-quote{ padding:22px 0; border-bottom:1px solid var(--line); }
+  .testimonial-quote:last-child{ border-bottom:none; }
+  .testimonial-quote p{
+    font-family:'David Libre', serif; font-style:italic; font-size:16.5px;
+    color:var(--ink); line-height:1.75; margin:0 0 10px;
   }
-  .testimonial-item.wide{ grid-column: 1 / -1; }
-  .testimonial-item img{
-    width:100%; height:auto; display:block; border:1px solid var(--line);
+  .testimonial-quote .cap{ font-size:12.5px; color:var(--ink-soft); letter-spacing:0.02em; }
+
+  .video-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; margin-top:10px; max-width:640px;
   }
-  .testimonial-caption{
-    margin-top:9px; font-size:12.5px; color:var(--ink-soft); text-align:center; letter-spacing:0.02em;
-  }
-  @media (max-width:520px){ .testimonial-grid{ grid-template-columns: 1fr; } }
+  .video-item{ position:relative; aspect-ratio: 9/16; overflow:hidden; border:1px solid var(--line); background:var(--espresso); }
+  .video-item iframe{ position:absolute; inset:0; width:100%; height:100%; border:none; }
+  @media (max-width:640px){ .video-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:420px){ .video-grid{ grid-template-columns: 1fr; max-width:260px; } }
 
   /* ---------- Site footer ---------- */
   .site-footer{
@@ -327,13 +332,28 @@ function L(x){
 }
 
 /* ====================== TESTIMONIALS ======================
-   4 המלצות אמיתיות. wide:true = תופסת שורה מלאה (לתמונות שדורשות יותר מקום לקריאה).
+   4 המלצות אמיתיות, כטקסט (לא צילומי מסך).
    ======================================================================= */
 const TESTIMONIALS = [
-  { img:"images/testimonial-1.jpg", wide:false, he:"יעל, סוכנת נסיעות", en:"Yael, Travel Agent" },
-  { img:"images/testimonial-2.jpg", wide:false, he:"סיוון, בעלת עסק לתוספי תזונה", en:"Sivan, owner of a nutritional supplements business" },
-  { img:"images/testimonial-3.jpg", wide:true,  he:'מיכל, מצוות השיווק של חברת המים הלאומית "מקורות"', en:"Michal, Marketing team at Mekorot (Israel's National Water Company)" },
-  { img:"images/testimonial-4.png", wide:true,  he:'נועה, מחברת תכשירי השיער "ביו-טופ"', en:"Noa, from Bio-Top hair care" },
+  { he:"חיים שלי ממש, תודה על הסרטון הוא נדיררררר ❤️😍", en:"Sweetheart, thank you so much for the video — it's incredible! ❤️😍",
+    nameHe:"יעל, סוכנת נסיעות", nameEn:"Yael, Travel Agent" },
+  { he:"אלופה אהבתי ממש תודהה ❤️❤️🫶🫶", en:"You're the best, I loved it so much, thank youuu ❤️❤️🫶🫶",
+    nameHe:"סיוון, בעלת עסק לתוספי תזונה", nameEn:"Sivan, owner of a nutritional supplements business" },
+  { he:"הי, כולנו מאושרים. הסרטון שלך ממש נותן לנו דחיפה שווה. תודה על המקצועיות, ההתקתקנות והשירות המצוין 💚 ברור שנעדכן. תודה על הכל 💙",
+    en:"Hi, we're all thrilled. Your video really gives us a great boost. Thank you for the professionalism, the responsiveness, and the excellent service 💚 Of course we'll be in touch again. Thank you for everything 💙",
+    nameHe:'מיכל, מצוות השיווק של חברת המים הלאומית "מקורות"', nameEn:"Michal, Marketing team at Mekorot (Israel's National Water Company)" },
+  { he:'את פשוט מטורפת! באמת.. איכות כזאת של סרטון זה לא משהו רגיל. אני עברתי הרבה יוצרות תוכן שהעלו עבודות לאינסטגרם וזה היה נראה מבטיח אבל את זה? תקשיבי, זה חולה. זאת רמה של טריילר לסרט בנות שאת בוודאות לוקחת את הבסטי ואתן קונות כרטיסים.',
+    en:"You're simply amazing! Really. A video of this quality isn't something ordinary. I went through a lot of content creators who posted work on Instagram and it looked promising, but this? Listen, this is insane. This is trailer-for-a-girls'-movie level — the kind where you definitely bring your bestie and buy tickets.",
+    nameHe:'נועה, מחברת תכשירי השיער "ביו-טופ"', nameEn:"Noa, from Bio-Top hair care" },
+];
+
+/* ====================== EXAMPLE VIDEOS ======================
+   סרטוני דוגמה מ-YouTube, מוטמעים ישירות בעמוד.
+   ======================================================================= */
+const VIDEOS = [
+  { id:"CNB-ysJPg0I" },
+  { id:"ZL5ZeESa_cU" },
+  { id:"HT_oyT-Arh8" },
 ];
 
 /* ====================== WhatsApp target number ====================== */
@@ -386,6 +406,8 @@ const UI = {
              en:"Using advanced AI technology, I turn a simple idea into a video that looks professional, matches your brand, and is ready within just a few days." },
   testiEyebrow: { he:"מה אומרים עלינו", en:"What clients say" },
   testiH2: { he:"לקוחות מספרים", en:"Client testimonials" },
+  videosEyebrow: { he:"דוגמאות", en:"Examples" },
+  videosH2: { he:"צפו בעבודות שלי", en:"Watch my work" },
   lastStepEyebrow: { he:"שלב אחרון", en:"Last step" },
   summaryTitle: { he:"סיכום התשובות שלך", en:"Summary of your answers" },
   summaryStep: { he:"סיכום", en:"Summary" },
@@ -551,11 +573,25 @@ function render(){
       <div class="story">
         <div class="story-eyebrow">${L(UI.testiEyebrow)}</div>
         <h2>${L(UI.testiH2)}</h2>
-        <div class="testimonial-grid">
+        <div class="testimonial-list">
           ${TESTIMONIALS.map(t=>`
-            <div class="testimonial-item ${t.wide?'wide':''}">
-              <img src="${t.img}" alt="" loading="lazy">
-              <div class="testimonial-caption">${currentLang==='en' ? t.en : t.he}</div>
+            <div class="testimonial-quote">
+              <p>"${currentLang==='en' ? t.en : t.he}"</p>
+              <div class="cap">${currentLang==='en' ? t.nameEn : t.nameHe}</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="story">
+        <div class="story-eyebrow">${L(UI.videosEyebrow)}</div>
+        <h2>${L(UI.videosH2)}</h2>
+        <div class="video-grid">
+          ${VIDEOS.map(v=>`
+            <div class="video-item">
+              <iframe src="https://www.youtube.com/embed/${v.id}" title="Lorin AI Studio example"
+                loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
             </div>
           `).join("")}
         </div>
