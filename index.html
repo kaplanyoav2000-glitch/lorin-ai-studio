@@ -7,6 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=David+Libre:wght@400;500;700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KMN8PQJJLK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-KMN8PQJJLK');
+</script>
 <style>
   :root{
     --bg: #F4EEE1;
@@ -379,6 +388,17 @@ const VIDEOS = [
   { id:"HT_oyT-Arh8" },
 ];
 
+/* ====================== ANALYTICS (funnel tracking) ======================
+   שולח אירועים ל-Google Analytics כדי לדעת איפה אנשים עוצרים בשאלון.
+   לא חושף שום דבר למי שממלא — רק את (או מי שיש לו גישה לחשבון ה-Analytics) רואה את זה.
+   אם ה-Measurement ID לא הוגדר עדיין, זה פשוט לא עושה כלום (לא שובר את האתר).
+   ======================================================================= */
+function trackEvent(name, params={}){
+  try{
+    if(typeof gtag === "function"){ gtag('event', name, params); }
+  }catch(e){ /* ignore analytics errors */ }
+}
+
 /* ====================== WhatsApp target number ====================== */
 const WHATSAPP_NUMBER = "972542885085"; // 054-288-5085 בפורמט בינלאומי ללא + או 0
 
@@ -532,6 +552,14 @@ function goTo(idx){
   current = Math.max(0, Math.min(steps.length-1, idx));
   render();
   window.scrollTo({top:0, behavior:'smooth'});
+
+  const step = steps[current];
+  if(step.type === "summary"){
+    trackEvent("questionnaire_reached_summary");
+  } else if(step.type !== "intro"){
+    const qIndex = qSteps.findIndex(s => s.key === step.key);
+    trackEvent("question_step_viewed", { step_key: step.key, step_number: qIndex + 1 });
+  }
 }
 
 function optionCard(name, value, label, checked, isCheckbox){
@@ -629,7 +657,10 @@ function render(){
     document.querySelectorAll('.video-item[data-id]').forEach(el=>{
       el.addEventListener('click', ()=> loadVideo(el), { once:true });
     });
-    document.getElementById("btn-start").addEventListener("click", ()=> goTo(1));
+    document.getElementById("btn-start").addEventListener("click", ()=>{
+      trackEvent("questionnaire_started");
+      goTo(1);
+    });
     return;
   }
 
@@ -688,7 +719,7 @@ function render(){
           <p>${answers.ideaDescription.replace(/</g,"&lt;")}</p>
         </div>
       ` : ``}
-      <a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">
+      <a class="wa-btn" href="${waLink}" target="_blank" rel="noopener" id="wa-send-btn">
         ${ICONS.whatsapp} ${L(UI.sendWhatsapp)}
       </a>
     `;
@@ -737,6 +768,8 @@ function attachHandlers(step){
   if(back) back.addEventListener('click', ()=> goTo(current-1));
   const next = document.getElementById('btn-next');
   if(next) next.addEventListener('click', ()=> goTo(current+1));
+  const waBtn = document.getElementById('wa-send-btn');
+  if(waBtn) waBtn.addEventListener('click', ()=> trackEvent("whatsapp_click"));
 }
 
 render();
